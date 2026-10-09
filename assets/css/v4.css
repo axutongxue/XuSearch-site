@@ -1,0 +1,550 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   V4「地平线 Horizon」= V2 骨架 + V1 中段 + V3 底部
+   骨架：顶部超细条 + 全屏浮层菜单 · 满屏沉浸 Hero + 巨型水印 · 通栏主演示
+   中段：能力左右交替行 + 答疑两栏网格（取自 V1 轨道）
+   底部：超大 brand 字标页脚（链接列 + 被裁切的巨型字 + 版权条）+ 悬浮 Dock
+   ══════════════════════════════════════════════════════════════════════════ */
+
+body.v4 { --bar-h: 60px; --dock-h: 58px; }
+
+/* ── 顶部超细条 ───────────────────────────────────────────────────────── */
+
+.bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--bar-h);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 26px;
+  border-bottom: 1px solid var(--glass-line);
+  background: rgba(5, 5, 9, 0.62);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+}
+
+.bar-brand { display: flex; align-items: center; gap: 9px; }
+.bar-mark {
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border-radius: 9px;
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  color: var(--nebula-lite);
+}
+.bar-mark svg { width: 16px; height: 16px; }
+.bar-name { font-size: 18px; font-weight: 600; letter-spacing: 0.02em; }
+.bar-slash { color: var(--text-dim); }
+.bar-en {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-lo);
+}
+
+.bar-gap { flex: 1; }
+
+/* 汉堡按钮：两条线，展开时交叉 */
+.bar-burger {
+  width: 38px; height: 38px;
+  position: relative;
+  border-radius: 50%;
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.bar-burger:hover { border-color: var(--glass-line-hi); background: var(--glass-hi); }
+.bar-burger span {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 15px; height: 1.5px;
+  border-radius: 2px;
+  background: White;
+  transition: transform 0.36s var(--ease), background 0.3s var(--ease);
+}
+.bar-burger span:first-child { transform: translate(-50%, -3.5px); }
+.bar-burger span:last-child  { transform: translate(-50%, 3.5px); }
+.bar-burger[aria-expanded="true"] span:first-child { transform: translate(-50%, 0) rotate(45deg); background: var(--text-hi); }
+.bar-burger[aria-expanded="true"] span:last-child  { transform: translate(-50%, 0) rotate(-45deg); background: var(--text-hi); }
+
+/* ── 全屏浮层菜单 ─────────────────────────────────────────────────────── */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;   /* 菜单靠左侧 */
+  gap: 40px;
+  padding: 96px 46px 46px;
+  background: rgba(4, 4, 8, 0.93);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition: opacity 0.44s var(--ease), transform 0.44s var(--ease), visibility 0.44s;
+}
+.overlay.open { opacity: 1; visibility: visible; transform: none; }
+
+.overlay-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  align-self: stretch;   /* 整行横跨全屏：任意横向位置（含右侧）都能点击对应功能 */
+}
+
+.overlay-nav a {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 16px 8px;
+  font-size: clamp(30px, 5.6vw, 58px);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  color: var(--text-hi);
+  border-bottom: 1px solid var(--glass-line);
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.overlay.open .overlay-nav a { opacity: 1; transform: none; }
+.overlay.open .overlay-nav a:nth-child(1) { transition-delay: 0.08s; }
+.overlay.open .overlay-nav a:nth-child(2) { transition-delay: 0.15s; }
+.overlay.open .overlay-nav a:nth-child(3) { transition-delay: 0.22s; }
+.overlay.open .overlay-nav a:nth-child(4) { transition-delay: 0.29s; }
+.overlay-nav a:hover { color: var(--nebula-lite); }
+/* 悬停「浮动」感：整行轻微右移 + 渐变底，提示这一行可点 */
+.overlay.open .overlay-nav a:hover {
+  transform: translateX(8px);
+  /* 整行都亮（右侧也保留底色），不在右侧淡成透明 */
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.16), rgba(139, 92, 246, 0.06));
+}
+.overlay-nav a::before {
+  content: attr(data-idx);
+  font-family: var(--mono);
+  font-size: 20px;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+}
+
+/* ── HERO：满屏沉浸 ───────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: calc(var(--bar-h) + 60px) 32px 96px;
+  overflow: hidden;
+}
+
+/* 巨型水印字：垫在标题之后 */
+.hero-mark {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  font-size: clamp(190px, 33vw, 470px);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  background: linear-gradient(175deg, rgba(139, 92, 246, 0.17) 0%, rgba(34, 211, 238, 0.035) 62%, transparent 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 22px;
+  max-width: 820px;
+}
+
+.hero .chip { font-size: 16px; }
+
+.hero-title {
+  font-size: clamp(42px, 6.6vw, 84px);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+
+.hero-sub { font-size: 17px; line-height: 1.68; color: var(--text-mid); max-width: 620px; }
+
+.dl-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 8px; }
+.dl-group svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.hero-note {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-lo);
+}
+
+/* 底部滚动提示：抬到 Dock 之上，避免被压住 */
+.hero-hint {
+  position: absolute;
+  bottom: calc(var(--dock-h) + 34px); left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-size: 14px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--text-lo);
+  animation: hintFloat 2.6s var(--ease-soft) infinite;
+}
+@keyframes hintFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
+  50%      { transform: translateX(-50%) translateY(7px); opacity: 1; }
+}
+
+/* ── 通栏主演示 ───────────────────────────────────────────────────────── */
+
+/* overflow-x: clip 而非 hidden —— 横向裁掉光晕的溢出，纵向仍允许光晕向上渗入 Hero。
+   （hidden + visible 的组合会被强制成 auto，所以只能用 clip） */
+.bleed { padding: 0 26px 110px; overflow-x: clip; }
+
+.bleed-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+/* 从虚空里浮出的屏幕：两侧渐隐的光序 */
+.bleed-inner::before {
+  content: '';
+  position: absolute;
+  inset: -16% -8%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(139, 92, 246, 0.26), transparent 72%);
+  filter: blur(52px);
+}
+/* 框随图走：不留固定比例，图按自身比例完整显示（不裁、不拉伸、不留边） */
+.bleed-inner .screen img { width: 100%; height: auto; }
+
+/* ── 能力：左右交替行（取自 V1 轨道） ─────────────────────────────────── */
+
+.stage-head {
+  max-width: 660px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 62px;
+}
+
+.stage-title {
+  font-size: clamp(32px, 4.4vw, 52px);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+}
+
+.stage-sub { font-size: 16px; color: var(--text-mid); }
+
+.feat { padding: 110px 46px; border-top: 1px solid var(--glass-line); }
+
+.rows { display: flex; flex-direction: column; gap: 30px; }
+
+/* 替换元素（video）会把 grid item 撑到内容尺寸，必须显式允许收缩，
+   否则溢出被 body 的 overflow-x:hidden 裁掉，看起来像"视频右边被切了" */
+.row-copy, .row-screen { min-width: 0; }
+
+.row {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 52px;
+  align-items: center;
+  padding: 32px;
+  border-radius: var(--r-xl);
+  border: 1px solid transparent;
+  transition: border-color 0.4s var(--ease), background 0.4s var(--ease);
+}
+.row:hover { border-color: var(--glass-line); background: rgba(255, 255, 255, 0.017); }
+
+/* 偶数行镜像翻转 */
+.row[data-dir="rtl"] { grid-template-columns: 1.18fr 0.82fr; }
+.row[data-dir="rtl"] .row-copy { order: 2; }
+.row[data-dir="rtl"] .row-screen { order: 1; }
+
+.row-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; }
+
+.row-num {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 16px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.row-num .mono { color: var(--nebula-lite); }
+.row-num i { font-style: normal; color: var(--text-lo); }
+.row-num::after {
+  content: '';
+  width: 34px; height: 1px;
+  background: linear-gradient(90deg, var(--glass-line-hi), transparent);
+}
+
+.row-copy h3 {
+  font-size: clamp(23px, 2.4vw, 31px);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.row-copy p { font-size: 15.5px; line-height: 1.68; color: var(--text-mid); }
+
+/* 框随图走：不留固定比例，图按自身比例完整显示（不裁、不拉伸、不留边） */
+.row-screen img { width: 100%; height: auto; }
+
+/* ── 答疑：两栏网格（取自 V1） ───────────────────────────────────────── */
+
+.tut { padding: 110px 46px; border-top: 1px solid var(--glass-line); }
+.tut-cta { display: flex; justify-content: center; margin-top: 50px; }
+
+.qa-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.qa {
+  padding: 30px 32px;
+  border-radius: var(--r-l);
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.qa:hover { border-color: rgba(139, 92, 246, 0.34); transform: translateY(-3px); }
+
+.qa h4 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 11px;
+  letter-spacing: -0.01em;
+}
+.qa h4::before {
+  content: '—';
+  margin-right: 9px;
+  color: var(--nebula-lite);
+}
+.qa p { font-size: 14.5px; line-height: 1.72; color: var(--text-mid); }
+.qa strong { color: var(--text-hi); font-weight: 600; }
+
+/* ── 页脚：超大 brand 字标（取自 V3 星图） ────────────────────────────── */
+
+.foot {
+  padding: 92px 0 0;
+  border-top: 1px solid var(--glass-line);
+}
+
+/* 内容横向限宽，与 V2 其余区块的 46px 边距对齐 */
+.foot-wrap {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 46px;
+}
+
+.foot-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  max-width: 780px;
+}
+
+.foot-col { display: flex; flex-direction: column; gap: 11px; }
+.foot-col-t {
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+.foot-col a {
+  font-size: 14.5px;
+  color: var(--text-mid);
+  transition: color 0.25s var(--ease);
+  width: fit-content;
+}
+.foot-col a:hover { color: var(--nebula-lite); }
+
+/* 超大 brand 字标：底部一条被裁切的巨型字 */
+.foot-giant {
+  margin-top: 62px;
+  /* 只露出字的上半部分，做出"从底部升起"的观感 */
+  height: clamp(72px, 11vw, 152px);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  /* 让字号能反过来约束于容器宽度，避免窄屏把字母切掉 */
+  container-type: inline-size;
+}
+.foot-giant-t {
+  font-size: clamp(96px, 19vw, 268px);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  user-select: none;
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.5) 0%, rgba(34, 211, 238, 0.14) 58%, transparent 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* 窄屏 96px 的下限会让 "XuSearch" 撑破容器，改用容器宽度单位收住 */
+@supports (font-size: 1cqw) {
+  .foot-giant-t { font-size: min(19vw, 268px, 21cqw); }
+}
+
+.foot-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 0 calc(var(--dock-h) + 40px);
+  font-size: 12.5px;
+  color: var(--text-lo);
+  border-top: 1px solid var(--glass-line);
+}
+.foot-line .mono { font-size: 12.5px; letter-spacing: 0.04em; }
+
+/* ── 底部悬浮 Dock（取自 V3 星图） ────────────────────────────────────── */
+
+.dock {
+  position: fixed;
+  bottom: 22px;
+  /* 50vw 含滚动条宽度：经典滚动条下 left:50% 会整体偏左半个滚动条 */
+  left: 50vw;
+  transform: translateX(-50%);
+  /* 低于 .overlay(55)：浮层菜单展开时 Dock 被盖住，不会浮在菜单之上 */
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-line);
+  background: rgba(8, 8, 14, 0.78);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+  box-shadow: 0 18px 48px -18px rgba(0, 0, 0, 0.95);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+/* 浮层菜单展开时同步隐去，避免与菜单的导航项重复 */
+body.menu-open .dock { opacity: 0; pointer-events: none; }
+
+/* 滑动指示器：跟随当前区块 */
+.dock-glider {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  height: calc(100% - 12px);
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(120deg, var(--nebula-deep), var(--nebula) 55%, var(--aurora-deep));
+  box-shadow: 0 6px 20px -6px rgba(139, 92, 246, 0.75);
+  transition: transform 0.5s var(--ease), width 0.5s var(--ease);
+  pointer-events: none;
+}
+
+.dock a {
+  position: relative;
+  z-index: 1;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-mid);
+  white-space: nowrap;
+  transition: color 0.3s var(--ease);
+}
+.dock a:hover { color: var(--text-hi); }
+.dock a.active { color: #fff; }
+
+/* ── 响应式 ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .row,
+  .row[data-dir="rtl"] { grid-template-columns: 1fr; gap: 26px; padding: 22px; }
+  .row[data-dir="rtl"] .row-copy,
+  .row[data-dir="rtl"] .row-screen { order: 0; }
+  .qa-grid { grid-template-columns: 1fr; }
+  .feat, .tut { padding: 76px 34px; }
+}
+
+@media (max-width: 760px) {
+  .bar { padding: 0 18px; gap: 10px; }
+  .bar-en, .bar-slash { display: none; }
+  .hero { padding: calc(var(--bar-h) + 40px) 24px 86px; }
+  .bleed { padding: 0 18px 76px; }
+  .stage-head { margin-bottom: 42px; }
+  .feat, .tut { padding: 66px 24px; }
+  .row, .row[data-dir="rtl"] { padding: 16px; }
+  .qa { padding: 24px 22px; }
+  .foot { padding: 74px 0 0; }
+  .foot-wrap { padding: 0 24px; }
+  .foot-links { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  .foot-giant { margin-top: 46px; }
+  .dock { bottom: 14px; }
+  .dock a { padding: 9px 16px; font-size: 13.5px; }
+  .overlay { padding: 84px 26px 34px; }
+}
+
+@media (max-width: 480px) {
+  .overlay-nav a { gap: 12px; padding: 14px 4px; }
+  .dl-group { width: 100%; }
+  .dl-group .btn-primary,
+  .dl-group .btn-ghost { flex: 1 1 auto; justify-content: center; }
+}
+
+/* 矮视口：Hero 内容会超过 100vh，垂直居中失效、末行被 Dock 压住。
+   收顶 + 放底把内容整体上抬。注意 Hero 是 grid，隐式行被 align-content: stretch
+   撑满内容盒，所以末行位置 = (vh + padT − padB + 内容高) / 2 ——
+   要往上抬就得"减 padT、加 padB"，加 padB 才是关键（V2 的原版是 96/96，抬不动）。 */
+@media (max-height: 820px) {
+  .hero { padding-top: var(--bar-h); padding-bottom: 96px; }
+  /* 空间不够时撤掉装饰性的滚动提示，否则它会叠在末行文案上 */
+  .hero-hint { display: none; }
+}
+
+/* ── 上架占位 toast ─────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 104px;           /* 避开底部 Dock */
+  transform: translateX(-50%) translateY(14px);
+  z-index: 70;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-line-hi);
+  background: rgba(10, 10, 16, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  color: var(--text-hi);
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>脚本使用教程 — 虚空搜索 XuSearch</title>
+  <meta name="description" content="配合扩展脚本在 Windows 与 MacOS 上调用搜索组：WIN+R 直接使用、搭配 Quicker / Alfred / uTools，以及脚本闪退报错的完整排查指南。" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070710'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%238B5CF6' stroke-width='3.5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2322D3EE'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../assets/css/fonts.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="docs.css" />
+</head>
+<body>
+
+  <!-- 顶栏：左品牌，右返回官网 -->
+  <header class="doc-bar">
+    <a class="doc-bar-home" href="../index.html">
+      <span class="bar-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></span>
+      <span class="bar-name">虚空搜索</span>
+      <span class="bar-slash">/</span>
+      <span class="bar-en mono">XUSEARCH</span>
+    </a>
+    <a class="doc-bar-back" href="index.html">← 返回教程总览</a>
+  </header>
+
+  <main class="doc-main">
+
+    <!-- 标题区 -->
+    <div class="doc-head">
+      <h1 class="grad">脚本使用教程</h1>
+      <p class="doc-meta">更新日期 2026-10-09 · 覆盖 Windows 与 MacOS</p>
+    </div>
+
+    <article class="doc-body">
+
+      <h2>Windows 系统</h2>
+      <p>Windows 端扩展配套脚本可以搭配多种工具使用，或者无需任何第三方软件，仅靠 Windows 自带功能也可以使用，具体看个人选择</p>
+      <p>不过无论哪种方式，都需要<strong>先下载下方的 bat 脚本模板文件</strong></p>
+      <ol>
+        <li><a href="https://pan.quark.cn/s/974bb40ec9b7" target="_blank" rel="noopener noreferrer">夸克网盘</a></li>
+        <li><a href="https://pan.baidu.com/s/10APPzV54JCZIe4FkmKZqjg?pwd=kyon" target="_blank" rel="noopener noreferrer">百度网盘</a></li>
+      </ol>
+
+      <h3>Windows 系统直接使用</h3>
+      <p>阿虚建议是花一点时间学习我之前写的<a href="https://mp.weixin.qq.com/s/Bk6iyYo0i5hBtUVqy5eXkQ" target="_blank" rel="noopener noreferrer">WIN+R 使用教程的免费基础部分</a>（👈点击即可查看），有助于你使用 WIN+R 快速启动软件、脚本、打开任意网址等</p>
+      <p>当然就算你目前完全不懂 WIN+R，也只需按下述操作即可快速上手，先用起来再说</p>
+
+      <h4>配置方法</h4>
+      <p>上方的脚本下载下来之后，我们需要更改脚本的存放位置。同时按下键盘上的 WIN+R 键打开电脑的运行窗口</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/530222/30/12020/31420/6ac07500Fd199c375/09362bc110c29b26.webp" alt="按下 WIN+R 打开的运行窗口" loading="lazy" />
+      </figure>
+      <p>然后在英文输入法状态下输入一个 <code>.</code>（或者 <code>%USERPROFILE%</code>），然后回车，进入你的电脑用户文件夹</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/541790/8/539/18054/6ac074f3Fa2b41c05/093621a125cd8e03.webp" alt="在运行窗口输入点号并回车" loading="lazy" />
+      </figure>
+      <p>将上面获取的 bat 批处理文件放到打开的文件夹里面</p>
+      <div class="doc-warn">
+        <strong>特别说明：</strong>如果你的电脑系统用户名包含特殊字符（比如我有一个用户的电脑用户名是 frank.1i）可能会导致脚本无法正常运行，这种情况建议直接把脚本放到 <code>C:\Windows</code> 文件夹
+      </div>
+      <p>然后需要你手动修改文件内容和文件名：右键模板 bat 文件，选择编辑</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/539523/31/2659/32125/6ac078a5Fb8af4b5b/09361cb18b8a01a3.png" alt="右键 bat 脚本选择编辑" loading="lazy" />
+      </figure>
+      <p>脚本和扩展的搜索组是一一对应关系，一个脚本是固定去调用扩展的某一个搜索组</p>
+      <p>需要改的地方就一处，找到脚本代码里面的 <code>Set-Clipboard -Value "AI联网推理"</code>，这个具体名称改成你扩展里面想要调用的搜索组名</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/540793/23/1350/89149/6ac0785fFecba7041/09367821ee84f57e.png" alt="修改脚本中要调用的搜索组名称" loading="lazy" />
+      </figure>
+      <p>最后把脚本名重命名成你喜欢、好记的名字。后续就能按下方的方法来使用了</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/535474/33/6400/18709/6ac07932F2f43ffb7/09361c108f62f3b5.png" alt="重命名脚本文件" loading="lazy" />
+      </figure>
+      <div class="doc-note">
+        <strong>注：</strong>你可以复制后创建多个不同名称的 bat 脚本文件，去对应调用不同的扩展中的搜索组
+      </div>
+
+      <h4>使用方法</h4>
+      <p>虽然部分 AI 网站支持不登录使用，但为了最好的提问效果，还是能登录的话尽量都登录一下账号</p>
+      <p>由于这类网站都<strong>可以保存一段时间当前电脑账户登录状态</strong>，所以并不需要你每次使用时都去登录</p>
+
+      <h5>直接在运行窗口输入内容</h5>
+      <p>一种用法是 WIN＋R 唤起运行窗口之后，先输入你的脚本名，然后空一格，再输入你想提的问题回车即可（问题不可以有空格）</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/531502/18/8187/417649/0050f904F48b2fac1/09365002d05e2e6e.avif" alt="运行窗口输入脚本名加问题" loading="lazy" />
+      </figure>
+
+      <h5>复制内容之后发起提问</h5>
+      <p>另一种用法就是先复制你想搜索或提问的任意内容，然后 WIN＋R 唤起运行窗口，接着输入你的脚本名，然后直接回车运行（这种方式提问内容可以有空格或换行）</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/531803/15/10746/394410/0050f904F9b2e52bd/09365002d040815a.avif" alt="复制内容后在运行窗口输入脚本名回车" loading="lazy" />
+      </figure>
+
+      <h4>常见问题</h4>
+
+      <h5>清除历史搜索记录</h5>
+      <p>有粉丝在问如何清除 WIN+R 之后，运行窗口搜索运行过的历史记录，你可以通过下面的方式来清除</p>
+      <p>WIN+S 搜索 CMD，然后选择以管理员模式运行，接着粘贴下面的代码回车运行即可：</p>
+      <pre><code>reg delete HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f
+</code></pre>
+      <p>或者更简单一点，下载下面这个小工具双击运行：<code>一键清除WIN+R运行窗口历史记录.bat</code></p>
+      <ol>
+        <li><a href="https://pan.quark.cn/s/63c9abf2bd69" target="_blank" rel="noopener noreferrer">夸克网盘</a></li>
+        <li><a href="https://pan.baidu.com/s/18vkVXgUel0IkSV_70B-MGQ?pwd=kyon" target="_blank" rel="noopener noreferrer">百度网盘</a></li>
+      </ol>
+      <p>同样的，你可以把这个脚本文件下载之后，放到 WIN+R 目录里面，<strong>比如重命名为：清除.bat</strong></p>
+      <p>这样直接在运行窗口输入「清除」并回车就可以消除历史记录了</p>
+
+      <h5>遇到脚本闪退报错</h5>
+      <p>如果你遇到了脚本运行后闪退一般有几种情况</p>
+
+      <h6>特殊用户名</h6>
+      <p>系统用户名包含特殊字符，比如我有一个用户的电脑用户名是 frank.1i，这种情况如果把脚本放在 WIN+R 后输入 . 打开的那个用户目录，就会导致脚本无法正常运行</p>
+      <p>解决办法：自己新建一个纯英文名文件夹，把这个文件夹添加系统环境变量里面去；或者再简单点，就是直接把脚本放到 <code>C:\Windows</code> 文件夹</p>
+
+      <h6>丢失运行环境</h6>
+      <p>很多时候可能是因为某些特殊原因缺失了默认的 Powershell 的系统环境变量，需要你自行补充</p>
+      <p>按下 WIN+R，输入 <code>sysdm.cpl</code> 后回车，在打开的系统属性窗口找到 ⇨ 高级 ⇨ 环境变量 ⇨ 系统变量 ⇨ Path ⇨ 编辑</p>
+      <p>看看里面有没有这两行：</p>
+      <pre><code>%SYSTEMROOT%\System32\
+%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\</code></pre>
+      <p>没有的话就手动添加上！</p>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/ada25380c7fb1b77091b83ad42866de4.webp!post" alt="系统变量 Path 编辑窗口" loading="lazy" />
+      </figure>
+
+      <h6>WIN XP／WIN7 系统</h6>
+      <p>WIN XP、WIN 7 用户若无法运行，请自行补充安装 Powershell5.1</p>
+      <p>如下图所示，打开微软官网下载 Win7AndW2K8R2-KB3191566-x64.zip，解压出来之后双击 .msu 文件进行安装：<a href="https://www.microsoft.com/en-us/download/details.aspx?id=54616" target="_blank" rel="noopener noreferrer">https://www.microsoft.com/en-us/download/details.aspx?id=54616</a></p>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/cb0ea3a7766285989be97a306adf8d7f.webp!post" alt="微软官网的 PowerShell 5.1 下载页面" loading="lazy" />
+      </figure>
+      <p>或者你也可以直接点击这里下载 Win7AndW2K8R2-KB3191566-x64.msu 双击安装：<a href="https://www.123684.com/s/bjcA-N6Hg" target="_blank" rel="noopener noreferrer">123云盘（登录后下载）</a>、<a href="http://4275.com/5rwtfz" target="_blank" rel="noopener noreferrer">4275盘</a></p>
+
+      <h6>默认浏览器设置缺失</h6>
+      <p>如果遇到下图这样的红字报错，那大概率是因为系统默认浏览器没设置好导致的</p>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/3b0148fa7c1875f7fa376c6983064ce2.webp!post" alt="脚本因默认浏览器缺失报错" loading="lazy" />
+      </figure>
+      <p>WIN7 点击桌面左下角即可设置默认程序，<a href="https://jingyan.baidu.com/article/3d69c551222757f0ce02d74e.html" target="_blank" rel="noopener noreferrer">不会操作的话点击这里查看教程👈</a></p>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/af774c418d02ff35cec9b350758fe09f.webp!post" alt="WIN7 设置默认程序" loading="lazy" />
+      </figure>
+      <p>WIN10 的话就按 WIN+S 然后搜索默认应用来进行设置，<a href="https://jingyan.baidu.com/article/c74d60003536974f6b595d0c.html" target="_blank" rel="noopener noreferrer">不会操作的话点击这里查看教程👈</a></p>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/cf78ea8c603a7fe9d384c0a1505ff55e.webp!post" alt="WIN10 搜索默认应用设置" loading="lazy" />
+      </figure>
+
+      <h6>WIN 11 用户权限不足问题</h6>
+      <p>由于 WIN 11 相较于 WIN 10 对用户账户控制更加严格了。而脚本涉及到键盘钩子和模拟键盘操作，没有管理员权限的情况下将无法正常运行</p>
+      <p>所以这里需要你按 WIN+R，输入 <code>secpol.msc</code>，然后回车打开本地安全策略</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/527009/5/15535/18312/6ac08cfaF7b623c68/09361b01276ec68f.jpg" alt="运行窗口输入 secpol.msc" loading="lazy" />
+      </figure>
+      <div class="doc-note">
+        <strong>注：</strong>若你是 WIN11 家庭版，这一步无法打开，请下载这个文件「开启本地组策略和本地安全策略.bat」：<a href="https://pan.quark.cn/s/95e6384b4bd5" target="_blank" rel="noopener noreferrer">夸克网盘</a>、<a href="https://pan.baidu.com/s/1RjdohVDgDb_dUG8g6BexZw?pwd=kyon" target="_blank" rel="noopener noreferrer">百度网盘</a>，然后右键使用管理员模式运行，之后再尝试进行上图操作
+      </div>
+      <p>依次展开：安全设置 » 本地策略 » 安全选项，找到<strong>用户账户控制：以管理员批准模式运行所有管理员</strong>，双击它</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/528674/34/11633/110871/6ac08d03F8e17f838/0936311232d33407.jpg" alt="本地安全策略中的用户账户控制选项" loading="lazy" />
+      </figure>
+      <p>将其设置改为「已禁用」然后点击确定即可。此设置只需修改一次</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/535463/12/8477/14145/6ac08cdeFd8b66dd8/09361e112ede40e2.jpg" alt="将用户账户控制设置为已禁用" loading="lazy" />
+      </figure>
+      <p>后续再使用 WIN+R 时就可以看到「使用管理权限创建此任务」即能正常使用脚本了</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/528401/19/15319/24396/6ac08ceaFa7dc96a1/093624017bfc063e.jpg" alt="运行窗口出现使用管理权限创建此任务选项" loading="lazy" />
+      </figure>
+
+      <h6>脚本执行权限不足</h6>
+      <p>还有一种就是稍微麻烦一点，可能是本地 Powershell 没有脚本运行权限导致的，即你可能会遇到红字报错「Powershell 无法将 Set-Clipboard 项识别为 cmdlet」</p>
+      <p>解决办法如下：</p>
+      <p><strong>WIN7</strong> 的话，找到开始 ⇨ 所有程序 ⇨ 附件 ⇨ Windows PowerShell，然后右键 Windows PowerShell 管理员模式运行</p>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/892c5f022645d672597cd114db407741.webp!post" alt="WIN7 以管理员模式运行 PowerShell" loading="lazy" />
+      </figure>
+      <p>打开 Powershell 之后输入 <code>Set-ExecutionPolicy Unrestricted</code> 回车，再输入 Y（必须是大写）回车确认即可，完事重启一下电脑使修改生效</p>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/8ed6f03a017ec629926890427ca7caca.webp!post" alt="PowerShell 中确认修改执行策略" loading="lazy" />
+      </figure>
+      <p><strong>WIN10 以上系统</strong>则 WIN+S 搜索 Powershell，然后点击以管理员身份运行</p>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/38f62e1d18e621c2e7f06db8aa93f14d.webp!post" alt="WIN10 搜索 PowerShell 并以管理员身份运行" loading="lazy" />
+      </figure>
+      <p>打开 Powershell 之后输入 <code>Set-ExecutionPolicy Unrestricted</code> 回车，再输入 A（注意必须是大写）回车确认即可，完了还是重启一下使修改生效</p>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/a408d66fbbbf4e38d1a72766e07a9ffe.webp!post" alt="PowerShell 中输入 A 确认修改" loading="lazy" />
+      </figure>
+
+      <h3>搭配 Quicker 使用</h3>
+      <p>Quicker 是一款 Windows 端的鼠标效率增强工具：<a href="https://getquicker.net/" target="_blank" rel="noopener noreferrer">https://getquicker.net/</a></p>
+      <p>扩展配套脚本也可以搭配 Quicker 进行使用</p>
+
+      <h4>配置方法</h4>
+      <p>动作地址：<a href="https://getquicker.net/Sharedaction?code=b77889cf-c32d-4f01-afb0-08dd90ed498a" target="_blank" rel="noopener noreferrer">https://getquicker.net/Sharedaction?code=b77889cf-c32d-4f01-afb0-08dd90ed498a</a></p>
+      <p>如何安装动作：<a href="https://getquicker.net/kc/manual/doc/install-action" target="_blank" rel="noopener noreferrer">https://getquicker.net/kc/manual/doc/install-action</a></p>
+      <p>首次使用动作会提示设置脚本路径，一个动作对应一个本地脚本即可</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271112/532480/21/9162/7501/6ac7ae6aF2e1b6429/093625c0ee0bdf2c.png" alt="Quicker 动作设置脚本路径" loading="lazy" />
+      </figure>
+
+      <h4>使用方法</h4>
+      <p>用法一：选中任意文本后，唤出 Quicker，选择动作即可一键调用多个 AI 网站批量进行批量提问/搜索</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271112/540275/25/5218/500475/0050fe04Fefcb80fe/09365322d06052ce.avif" alt="Quicker 选中文本后唤出动作" loading="lazy" />
+      </figure>
+      <p>用法二：唤出 Quicker，点击动作，输入要搜索的内容后，点击确认即可一键调用多个 AI 网站批量进行提问/搜索</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271112/534237/21/12967/317476/0050fe04Fae5d70ab/09365002d03c0af2.avif" alt="Quicker 点击动作输入搜索内容" loading="lazy" />
+      </figure>
+
+      <h3>搭配 uTools 使用</h3>
+      <p>uTools 是一款适用于 Windows／Mac 的鼠标效率增强工具：<a href="https://www.u-tools.cn/" target="_blank" rel="noopener noreferrer">https://www.u-tools.cn/</a></p>
+
+      <h4>配置方法</h4>
+      <p>安装好软件之后，在 uTools 插件应用市场，搜索安装「自动化助手」</p>
+      <figure>
+        <img src="https://cbu01.alicdn.com/img/ibank/O1CN01J9A6ME1Bs33U1QZDT_!!0-0-cib.jpg" alt="uTools 搜索安装自动化助手" loading="lazy"  referrerpolicy="no-referrer"/>
+      </figure>
+      <p>打开自动化助手的设置</p>
+      <figure>
+        <img src="https://cbu01.alicdn.com/img/ibank/O1CN01V9bwzK1Bs33RQ73QE_!!0-0-cib.jpg" alt="打开自动化助手设置" loading="lazy"  referrerpolicy="no-referrer"/>
+      </figure>
+      <p>点击默认分类 ⇨ 创建自动化脚本</p>
+      <figure>
+        <img src="https://cbu01.alicdn.com/img/ibank/O1CN01n2BpUV1Bs33RQBoxt_!!0-0-cib.jpg" alt="创建自动化脚本" loading="lazy"  referrerpolicy="no-referrer"/>
+      </figure>
+      <p>按下图填写代码、勾选设置功能、图标有需要的话可以自定义，<strong>关键是注意点击新增「任意文本匹配命令」和「脚本路径的写法」</strong></p>
+      <p>设置好之后最后点击保存</p>
+      <figure>
+        <img src="https://cbu01.alicdn.com/img/ibank/O1CN01lObdYK1lPUXJmcZqB_!!6000000004811-0-cib.jpg" alt="自动化脚本填写代码并保存" loading="lazy"  referrerpolicy="no-referrer"/>
+      </figure>
+      <p>用到的代码如下，其中 BAT 文件路径需要你自行<strong>修改为你实际本地文件的路径</strong>，同时注意像示例代码那样，<strong>添加反斜杠！</strong>另外<strong>左右是单引号！</strong></p>
+      <pre><code>// 定义脚本路径
+const EXE_PATH = 'C:\\Users\\admin\\AI.bat';
+// 获取用户输入的文本
+const inputText = ENTER.payload; 
+try {
+  // 将用户输入设置到剪贴板
+  utools.copyText(inputText);
+  // 启动脚本
+  const { spawn } = require('child_process');
+  const child = spawn(EXE_PATH, [], {
+    detached: true,
+    stdio: 'ignore'
+  }); 
+  // 分离子进程，让它独立运行
+  child.unref();
+} catch (error) {
+  console.error('启动失败:', error.message);
+}
+</code></pre>
+      <p>配制好之后记得把脚本启用</p>
+      <figure>
+        <img src="https://cbu01.alicdn.com/img/ibank/O1CN01WrxJYW1Bs33RyoJUA_!!0-0-cib.jpg" alt="把脚本启用" loading="lazy"  referrerpolicy="no-referrer"/>
+      </figure>
+
+      <h4>使用方法</h4>
+      <p>可以随时唤出 uTools 并调用脚本一键进行 AI 批量搜索</p>
+      <p>用法为直接在 uTools 上输入你想搜索或者提问的任意问题，接着选择你想使用的搜索组（对应的本地脚本）</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271112/534036/16/11941/312797/0050fe04Fbf0d5608/09365002d0eca367.avif" alt="uTools 输入问题调用搜索组" loading="lazy" />
+      </figure>
+
+      <h2>MacOS 系统</h2>
+      <p>由于 MacOS 不像 Windows 那样，自带可传递参数的［运行］命令框，所以我们需要借助一些第三方效率软件才能实现全局调用</p>
+
+      <h3>搭配 Alfred 使用</h3>
+      <p>这里主要推荐的是知名效率神器 Alfred，破解版可以在下方自取</p>
+      <p>Alfred 4.6.5 破解版.dmg：<a href="https://pan.quark.cn/s/d66ecf4c7ff8" target="_blank" rel="noopener noreferrer">夸克网盘</a>、<a href="https://pan.baidu.com/s/1ECLXmhVfpmduSd0e3JR8Pw?pwd=kyon" target="_blank" rel="noopener noreferrer">百度网盘（密码：kyon）</a>、<a href="https://pan.xunlei.com/s/VOUPlT-BBU9wjeIha1ZkRwwFA1?pwd=txif#" target="_blank" rel="noopener noreferrer">迅雷云盘</a>、<a href="https://drive.uc.cn/s/e7d7fc1e435d4?public=1" target="_blank" rel="noopener noreferrer">UC网盘</a></p>
+
+      <h4>配置方法</h4>
+      <p>下载安装好 Alfred 之后，点击软件的 <strong>Preferences</strong> 首选项</p>
+      <div class="doc-note">
+        <strong>㊟</strong> 如果安装过程中遇到提示「Alfred 已损坏，无法打开」，可尝试<a href="https://jingyan.baidu.com/article/37bce2be644dbe5103f3a268.html" target="_blank" rel="noopener noreferrer">解决办法1</a>，或者<a href="https://jingyan.baidu.com/article/5553fa82f51dcf24a339343a.html" target="_blank" rel="noopener noreferrer">解决办法2</a>
+      </div>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/09ee842b26e3db0c903a01c3cdc2534a.jpeg!post" alt="Alfred 的 Preferences 首选项" loading="lazy" />
+      </figure>
+      <p>在软件的 <strong>General</strong> 通用设置里面，点击权限 ⇨ 请求权限，把所有软件所需要的权限都打开（前2个都需要开），后续运行脚本的时候请求权限允许</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/531714/35/12128/57898/6ac0922bF52b01f26/09364b040f7ad82a.webp" alt="General 设置里请求全部权限" loading="lazy" />
+      </figure>
+      <p>然后你可以自定义 Alfred 的呼出快捷键，<strong>默认是 Alt+Space</strong></p>
+      <p>如果你想把快捷键改为 Command+Space 顺便代替系统默认的 Spotlight 来搜索文件、启动软件。你可以点击电脑左上角 🍎 ⇨ 系统设置 ⇨ 服务 ⇨ 服务设置 ⇨ 聚焦 ⇨ 禁用［显示"聚焦"搜索窗口］，之后你就能在 Alfred 里面把快捷键改为 Command+Space 了</p>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/f41f1043316abcb72399a43cf9309ca7.jpeg!post" alt="系统设置里禁用聚焦搜索窗口" loading="lazy" />
+      </figure>
+      <p>这里为了简化步骤，请大家直接下载脚本模板文件</p>
+      <ol>
+        <li><a href="https://pan.quark.cn/s/0b5154b195c2" target="_blank" rel="noopener noreferrer">夸克网盘</a></li>
+        <li><a href="https://pan.baidu.com/s/1BzwdU7O1UfLU4i77lm3M8Q?pwd=kyon" target="_blank" rel="noopener noreferrer">百度网盘</a></li>
+      </ol>
+      <p>然后打开 Alfred 软件找到左侧的 Workflows 功能，<strong>再把下载的文件拖入软件即可完成导入</strong></p>
+      <figure>
+        <img src="https://static.xiaobot.net/file/2026-06-14/495612/e9a30cfa106a659195c94137e968fa16.gif" alt="把脚本文件拖入 Alfred 完成导入" loading="lazy" />
+      </figure>
+      <p>后续你可以随意去修改脚本的名称、描述、分类、图标等</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/527872/21/12605/24850/6ac0aa3aFd67a8b4d/09364d21ae6586ec.png" alt="修改脚本的名称、描述、分类与图标" loading="lazy" />
+      </figure>
+      <p>最关键是调用脚本的 <strong>Keyword 关键词</strong>按自己喜欢来设置，比如我改成「搜索」</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/541946/19/490/107380/6ac0aaf2F5ef27b54/0936406248fd3c25.png" alt="设置脚本调用的 Keyword 关键词" loading="lazy" />
+      </figure>
+      <p>然后还需要修改一下具体脚本内容</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/540620/32/1410/26303/6ac0adffF532841fe/09364d21aee2dd66.png" alt="打开脚本内容进行编辑" loading="lazy" />
+      </figure>
+      <p>脚本和扩展的搜索组是一一对应关系，一个脚本是固定去调用扩展的某一个搜索组</p>
+      <p>需要改的地方就一处，找到脚本代码里面的 <code>Set the clipboard to "传统搜索"</code>，这个具体名称改成你扩展里面想要调用的搜索组名。比如你创建了一个名称叫 AI 推理的搜索组，那这里就改成 AI 推理</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/535975/8/7248/664426/6ac0ae62Ff1db4c78/0936b40708ce6524.webp" alt="把脚本里的搜索组名改成自己的" loading="lazy" />
+      </figure>
+      <p>改为之后保存即可。你可以如法炮制，在 Alfred 创建多个不同的搜索动作</p>
+
+      <h4>使用方法</h4>
+      <p>后续则是两种用法实现快速调用</p>
+
+      <h5>直接在运行窗口输入内容</h5>
+      <p>一种用法就是：按你设置的快捷键先呼出 Alfred（比默认快捷键 Alt+Space），然后在弹出窗口输入你的脚本名称，比如搜索，接着注意<strong>空一格</strong>，再输入你要提问的内容（不可以有空格），接着回车</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/537054/18/2840/341524/0050f904Fdf2645da/09364802d093c086.avif" alt="Alfred 里输入关键词加问题" loading="lazy" />
+      </figure>
+
+      <h5>复制内容之后发起提问</h5>
+      <p>另一种用法就是：<strong>先复制</strong>你想搜索或提问的内容，然后呼出 Alfred，输入你的脚本关键词，接着输入你的脚本名，然后直接回车运行（这种方式提问内容可以有空格或换行）</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/535531/37/6794/251343/0050f904Fce0bdc0b/09364802d0f13dce.avif" alt="复制内容后在 Alfred 里回车提问" loading="lazy" />
+      </figure>
+
+      <h3>搭配 uTools 使用</h3>
+      <p>uTools 是一款适用于 Windows／Mac 的鼠标效率增强工具：<a href="https://www.u-tools.cn/" target="_blank" rel="noopener noreferrer">https://www.u-tools.cn/</a></p>
+
+      <h4>配置方法</h4>
+      <p>安装好软件之后，在 uTools 插件应用市场，搜索安装「自动化助手」</p>
+      <figure>
+        <img src="https://cbu01.alicdn.com/img/ibank/O1CN01J9A6ME1Bs33U1QZDT_!!0-0-cib.jpg" alt="uTools 搜索安装自动化助手" loading="lazy"  referrerpolicy="no-referrer"/>
+      </figure>
+      <p>打开自动化助手的设置</p>
+      <figure>
+        <img src="https://cbu01.alicdn.com/img/ibank/O1CN01V9bwzK1Bs33RQ73QE_!!0-0-cib.jpg" alt="打开自动化助手设置" loading="lazy"  referrerpolicy="no-referrer"/>
+      </figure>
+      <p>点击默认分类 ⇨ 创建自动化脚本</p>
+      <figure>
+        <img src="https://cbu01.alicdn.com/img/ibank/O1CN01n2BpUV1Bs33RQBoxt_!!0-0-cib.jpg" alt="创建自动化脚本" loading="lazy"  referrerpolicy="no-referrer"/>
+      </figure>
+      <p>按下图填写并修改关键代码、勾选设置功能、图标有需要的话可以自定义</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271112/539289/31/7132/503272/6ac7ad71Faa519617/09366724ec59f7aa.png" alt="Mac 上自动化脚本填写关键代码" loading="lazy" />
+      </figure>
+      <p>上图部分的代码如下</p>
+      <pre><code>if (utools.isMacOS()) {
+  // 获取用户输入的文本
+const inputText = ENTER.payload;
+  // 将用户输入设置到剪贴板
+utools.copyText(inputText); 
+  // 运行 AppleScript 激活终端 并执行脚本
+  runAppleScript(`use scripting additions
+
+on run argv
+
+if (count of argv) = 0 then
+  # 没有传入参数，获取剪贴板内容
+  try
+    set clipboardContent to (the clipboard as string)
+  on error
+    set clipboardContent to ""
+  end try
+else
+  # 传入了参数，使用第一个参数
+  set clipboardContent to item 1 of argv
+end if
+
+# 去除末尾空白字符（对应 Windows 的 TrimEnd）
+repeat while (count of clipboardContent) &gt; 0
+  set lastChar to last character of clipboardContent
+  if lastChar is " " or lastChar is tab or lastChar is return or lastChar is linefeed then
+    if (count of clipboardContent) is 1 then
+      set clipboardContent to ""
+    else
+      set clipboardContent to text 1 thru -2 of clipboardContent
+    end if
+  else
+    exit repeat
+  end if
+end repeat
+
+################################################################
+
+# 写入前缀内容到剪贴板
+set the clipboard to "传统搜索"
+
+################################################################
+
+# open location 属于 Standard Additions，必须在任何 tell 块之外调用
+open location "http://about:blank"
+delay 2.0
+
+# 打开浏览器扩展
+tell application "System Events"
+  key code 7 using {option down, shift down} # X键 + Option键 + Shift键
+end tell
+delay 0.5
+
+# 粘贴前缀
+tell application "System Events"
+  key code 9 using command down # 按下V键 + Command键
+end tell
+delay 0.2
+
+# 空格
+tell application "System Events"
+  key code 49 # 空格键
+end tell
+delay 0.2
+
+# 设置提问内容到剪贴板
+set the clipboard to clipboardContent
+delay 0.5
+
+# 粘贴问题
+tell application "System Events"
+  key code 9 using command down # 按下V键 + Command键
+end tell
+delay 0.2
+
+# 发送
+tell application "System Events"
+  key code 36 # 按下Enter键
+end tell
+delay 0.2
+
+end run`)
+  return
+}
+</code></pre>
+      <p>配制好之后记得把脚本启用</p>
+      <figure>
+        <img src="https://cbu01.alicdn.com/img/ibank/O1CN01WrxJYW1Bs33RyoJUA_!!0-0-cib.jpg" alt="把脚本启用" loading="lazy"  referrerpolicy="no-referrer"/>
+      </figure>
+      <h4>使用方法</h4>
+      <p>具体用法参照 Windows 端，一样是可以随时唤出 uTools 并调用脚本一键进行 AI 批量搜索</p>
+      <p>用法为直接在 uTools 上输入你想搜索或者提问的任意问题，接着选择你想使用的搜索组（对应的本地脚本）</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271112/534036/16/11941/312797/0050fe04Fbf0d5608/09365002d0eca367.avif" alt="uTools 输入问题调用搜索组" loading="lazy" />
+      </figure>
+    </article>
+
+    <!-- 页脚 -->
+    <footer class="doc-foot">
+      <a href="index.html">← 返回教程总览</a>
+      <span class="mono">© 2026 XUSEARCH</span>
+    </footer>
+
+  </main>
+
+  <script src="toc.js"></script>
+  <script src="copy-code.js"></script>
+</body>
+</html>

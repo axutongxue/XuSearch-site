@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>虚空搜索 XuSearch — 一次输入，全域回响 · 地平线</title>
+  <meta name="description" content="虚空搜索 XuSearch 一键把你的问题同时发给多个 AI 网站，并排查看回答，快速比较、交叉验证，找到更可靠的答案。代码开源 · 本地执行 · 无隐私风险。" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070710'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%238B5CF6' stroke-width='3.5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2322D3EE'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="assets/css/fonts.css" />
+  <link rel="stylesheet" href="assets/css/base.css" />
+  <link rel="stylesheet" href="assets/css/v4.css" />
+</head>
+<body class="v4">
+
+  <!-- ═══ 顶部超细条 ═══════════════════════════════════════════════ -->
+  <header class="bar">
+    <a class="bar-brand" href="#install">
+      <span class="bar-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11 12 3l9 8" /><path d="M5 9.5V21h14V9.5" /><path d="M10 21v-6h4v6" />
+        </svg>
+      </span>
+      <span class="bar-name">虚空搜索</span>
+      <span class="bar-slash">/</span>
+      <span class="bar-en mono">XuSearch</span>
+    </a>
+
+    <span class="bar-gap"></span>
+
+    <button class="bar-burger" type="button" id="menuBtn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ═══ 全屏浮层菜单 ═════════════════════════════════════════════ -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <nav class="overlay-nav">
+      <a href="#install"  data-idx="01">安装</a>
+      <a href="#features" data-idx="02">能力</a>
+      <a href="#tutorial" data-idx="03">答疑</a>
+      <a href="docs/index.html" data-idx="04">教程</a>
+    </nav>
+  </div>
+
+  <main>
+
+    <!-- ─── HERO：满屏沉浸 + 巨型水印 ─────────────────────────── -->
+    <section class="hero" id="install">
+      <span class="hero-mark" aria-hidden="true">虚空</span>
+
+      <div class="hero-inner">
+        <span class="chip reveal"><span class="chip-dot"></span><span >一次输入，全域回响</span></span>
+        <h1 class="hero-title reveal" style="transition-delay:.06s">
+          <span class="grad">XuSearch<br>从虚空中探索万物</span>
+        </h1>
+        <p class="hero-sub reveal" style="transition-delay:.12s">一键把你的问题同时发给多个 AI 网站，并排查看回答，实现快速比较、交叉验证<br>一眼高低，去芜存菁</p>
+
+        <div class="dl-group reveal" style="transition-delay:.18s">
+          <button class="btn-primary" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3.8" />
+              <path d="M12 3.2v5.2M20.7 16.4l-4.5-2.6M3.3 16.4l4.5-2.6" />
+            </svg>
+            <span >Chrome</span>
+          </button>
+          <button class="btn-ghost" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M20.5 12.4c0-4.7-3.8-8.4-8.5-8.4S3.5 7.7 3.5 12.4s3.8 8.5 8.5 8.5" />
+              <path d="M3.7 14.3h11.1c3 0 5.5-2.4 5.5-5.4" />
+            </svg>
+            <span >Edge</span>
+          </button>
+          <button class="btn-ghost" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <circle cx="12" cy="12" r="6.4" /><path d="M12 5.6A6.4 6.4 0 0 1 18.4 12" />
+              <path d="M4.4 9.6C6.3 6.7 9 5.2 12 5.2" />
+            </svg>
+            <span >Firefox</span>
+          </button>
+        </div>
+        <p class="hero-note reveal" style="transition-delay:.24s">代码开源 · 本地执行 · 无隐私风险</p>
+      </div>
+
+      <span class="hero-hint mono" aria-hidden="true">向下滚动</span>
+    </section>
+
+    <!-- ─── 通栏主演示 ────────────────────────────────────────── -->
+    <section class="bleed">
+      <div class="bleed-inner reveal">
+        <div class="screen">
+          <img src="https://img30.360buyimg.com/imgzone/jfs/t20271106/537944/37/4876/789955/0050f804F2a081b89/09365322d0a321d6.avif" alt="虚空搜索全流程演示" decoding="async" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 能力：左右交替行（取自 V1 轨道） ───────────────────── -->
+    <section class="feat" id="features">
+      <header class="stage-head reveal">
+        <span class="chip"><span class="chip-dot"></span><span >核心能力</span></span>
+        <h2 class="stage-title">从一个提问，<br>到一整片答案</h2>
+        <p class="stage-sub">十大核心能力，从头到尾过一遍</p>
+      </header>
+
+      <div class="rows">
+        <article class="row reveal" data-dir="ltr">
+          <div class="row-copy">
+            <span class="row-num"><span class="mono">01</span><i >总结</i></span>
+            <h3 >AI 一键总结</h3>
+            <p >统一问题，独立提问，交叉验证最终答案。更多样化的视角，更低概率的AI幻觉</p>
+          </div>
+          <div class="row-screen screen">
+            <img src="https://img30.360buyimg.com/imgzone/jfs/t20271106/530081/38/12262/1911094/0050f804F2ae23cf2/09365322d09a57df.avif" alt="AI 一键总结演示" decoding="async" loading="lazy" />
+          </div>
+        </article>
+
+        <article class="row reveal" data-dir="rtl">
+          <div class="row-copy">
+            <span class="row-num"><span class="mono">02</span><i >附件</i></span>
+            <h3 >批量上传附件</h3>
+            <p >将文件同时分发到多个AI对话，一份原始资料，多份处理结果供你对比</p>
+          </div>
+          <div class="row-screen screen">
+            <img src="https://img30.360buyimg.com/imgzone/jfs/t20271112/544075/22/1037/319560/0050fe04F1c9ff8ad/09365322d0e6aea7.avif" alt="批量上传附件演示" decoding="async" loading="lazy" />
+          </div>
+        </article>
+
+      <div class="rows">
+        <article class="row reveal" data-dir="ltr">
+          <div class="row-copy">
+            <span class="row-num"><span class="mono">03</span><i >新标签</i></span>
+            <h3 >新标签模式</h3>
+            <p >也支持新标签打开，适配网盘、影视、音乐、传统搜索等多场景批量搜索需求</p>
+          </div>
+          <div class="row-screen screen">
+            <img src="https://img30.360buyimg.com/imgzone/jfs/t20271106/538570/1/4079/431688/0050f804Fd463bd44/09365302d0799ec0.avif" alt="新标签模式演示" decoding="async" loading="lazy" />
+          </div>
+        </article>
+
+         <article class="row reveal" data-dir="rtl">
+          <div class="row-copy">
+            <span class="row-num"><span class="mono">04</span><i >快捷键</i></span>
+            <h3 >网页全局快捷键</h3>
+            <p >在浏览器随时唤起扩展，在任何页面都不打断你的思路</p>
+          </div>
+          <div class="row-screen screen">
+            <img src="https://img30.360buyimg.com/imgzone/jfs/t20271112/543943/38/1362/320739/0050fe04F7f31cfb5/09365322d00ea6f1.avif" alt="网页全局快捷键演示" decoding="async" loading="lazy" />
+          </div>
+        </article>
+
+        <div class="rows">
+        <article class="row reveal" data-dir="ltr">
+          <div class="row-copy">
+            <span class="row-num"><span class="mono">05</span><i >桌面能力</i></span>
+            <h3 >桌面级全局唤醒</h3>
+            <p >搭配专属脚本，甚至可以实现随时随地在电脑任何界面快速发起提问、搜索</p>
+          </div>
+          <div class="row-screen screen">
+            <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/531502/18/8187/417649/0050f904F48b2fac1/09365002d05e2e6e.avif" alt="桌面级全局唤醒演示" decoding="async" loading="lazy" />
+          </div>
+        </article>
+
+        <article class="row reveal" data-dir="rtl">
+          <div class="row-copy">
+            <span class="row-num"><span class="mono">06</span><i >布局</i></span>
+            <h3 >多种布局自由切换</h3>
+            <p >单排、双排、三排，信息聚焦还是左右对比，随你而定</p>
+          </div>
+          <div class="row-screen screen">
+            <img src="https://img30.360buyimg.com/imgzone/jfs/t20271106/534729/2/8199/529555/0050f804Fa96c48fa/09365322d0dbd576.avif" alt="多种布局自由切换演示" decoding="async" loading="lazy" />
+          </div>
+        </article>
+
+        <article class="row reveal" data-dir="ltr">
+          <div class="row-copy">
+            <span class="row-num"><span class="mono">07</span><i >提示词</i></span>
+            <h3 >丰富的内置提示词</h3>
+            <p >扩展内置海量优质提示词，同时支持自定义常用提示词</p>
+          </div>
+          <div class="row-screen screen">
+            <img src="https://img30.360buyimg.com/imgzone/jfs/t20271106/529967/25/9244/537973/0050f804Fc46153bd/09365322d0e1013b.avif" alt="丰富的内置提示词演示" decoding="async" loading="lazy" />
+          </div>
+        </article>
+
+        <article class="row reveal" data-dir="rtl">
+          <div class="row-copy">
+            <span class="row-num"><span class="mono">08</span><i >分组</i></span>
+            <h3 >任意站点自由组合</h3>
+            <p >搜索组可自由搭配，同时支持自定义站点，构建属于你自己的 AI 连招</p>
+          </div>
+         <div class="row-screen screen">
+            <img src="https://img30.360buyimg.com/imgzone/jfs/t20271106/533565/14/9321/333344/0050f804F20e915ea/09365002d03eca11.avif" alt="任意站点自由组合演示" decoding="async" loading="lazy" />
+          </div>
+        </article>
+
+        
+        <article class="row reveal" data-dir="ltr">
+          <div class="row-copy">
+            <span class="row-num"><span class="mono">09</span><i >恢复</i></span>
+            <h3 >批量恢复对话</h3>
+            <p >批量恢复上次的对话，让你和 AI 的聊天不再中断</p>
+          </div>
+          <div class="row-screen screen">
+            <img src="https://img30.360buyimg.com/imgzone/jfs/t20271106/541481/29/610/558319/0050f804Fb0780bb7/09365002d01aad2e.avif" alt="批量恢复对话演示" decoding="async" loading="lazy" />
+          </div>
+        </article>
+
+        <article class="row reveal" data-dir="rtl">
+          <div class="row-copy">
+            <span class="row-num"><span class="mono">10</span><i >导出</i></span>
+            <h3 >合并导出</h3>
+            <p >把多个模型的回答合并成一篇完整文档，一键导出存档</p>
+          </div>
+         <div class="row-screen screen">
+            <img src="https://img30.360buyimg.com/imgzone/jfs/t20271106/535367/36/7323/736330/0050f804F79891431/09365002d0559f21.avif" alt="合并导出演示" decoding="async" loading="lazy" />
+          </div>
+        </article>
+        
+      </div>
+    </section>
+
+    <!-- ─── 答疑：两栏网格（取自 V1） ─────────────────────────── -->
+    <section class="tut" id="tutorial">
+      <header class="stage-head reveal">
+        <span class="chip"><span class="chip-dot"></span><span >核心答疑</span></span>
+        <h2 class="stage-title">常见问题</h2>
+        <p class="stage-sub">高频问题与回答，方便快速查阅。</p>
+      </header>
+
+      <div class="qa-grid">
+        <div class="qa reveal">
+          <h4 >我的数据安全吗？</h4>
+          <p >扩展不会收集任何个人数据。你的提问内容、搜索历史、提示词库等所有信息只存在目标 AI 网站与你自己的浏览器本地。扩展本身也是开源项目，代码托管在 GitHub，任何人都可以查看源码并验证安全性。</p>
+        </div>
+        <div class="qa reveal" style="transition-delay:.06s">
+          <h4 >它是怎么工作的？</h4>
+          <p >基于 iframe 技术，在一个页面内同时加载多个 AI 网站窗口，同时通过代码模拟人工点击、粘贴、发送过程，从而实现并排多个网站内容进行对比。你登录了哪个 AI 平台，虚空搜索就在那个平台上直接操作，自动化过程没有经过任何后端服务器。</p>
+        </div>
+        <div class="qa reveal" style="transition-delay:.12s">
+          <h4 >扩展免费吗？</h4>
+          <p >插件内置免费 AI 搜索组，且官网使用教程有介绍完全免费的大模型 API 用于对回答结果进一步 AI 总结。因 AI 官网会频繁改动页面、新增模型、调整额度，维护自动化规则非常耗费时间和精力，所以如果你想对更多的 AI 站点批量提问，想获取网盘、影视、音乐等资源批量搜索能力，可以在扩展内订阅会员后获取长期的规则更新。</p>
+        </div>
+        <div class="qa reveal" style="transition-delay:.18s">
+          <h4 >为什么有些页面不能内嵌？</h4>
+          <p >部分 AI 网站或平台限制 iframe 模式嵌入，导致页面只能在新标签打开。面对网站的安全策略，扩展只能尽力适配或者寻找替代渠道，感谢理解。</p>
+        </div>
+      </div>
+
+      <div class="tut-cta reveal">
+        <a class="btn-ghost" href="docs/index.html">阅读更多使用教程 →</a>
+      </div>
+    </section>
+
+    <!-- ─── 页脚：超大 brand 字标（取自 V3 星图） ──────────────── -->
+    <footer class="foot">
+      <div class="foot-wrap">
+        <div class="foot-links">
+          <div class="foot-col">
+            <span class="foot-col-t">产品</span>
+            <a href="#install">下载安装</a>
+            <a href="#features">功能介绍</a>
+          </div>
+          <div class="foot-col">
+            <span class="foot-col-t">资源</span>
+            <a href="docs/index.html">使用教程</a>
+            <a href="https://github.com/axutongxue/XuSearch" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://github.com/axutongxue/XuSearch/PRIVACY.md" target="_blank" rel="noopener">隐私政策</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-giant" aria-hidden="true">
+        <span class="foot-giant-t">XuSearch</span>
+      </div>
+
+      <div class="foot-wrap">
+        <div class="foot-line">
+          <span class="mono">© 2026 XuSearch 虚空搜索 · 开源项目</span>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ═══ 底部悬浮 Dock（取自 V3 星图） ═══════════════════════════ -->
+  <nav class="dock" id="dock" aria-label="Section navigation">
+    <span class="dock-glider" id="dockGlider" aria-hidden="true"></span>
+    <a href="#install"  class="active">安装</a>
+    <a href="#features">能力</a>
+    <a href="#tutorial">答疑</a>
+  </nav>
+
+  <!-- 上架占位提示 toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/shared.js"></script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>

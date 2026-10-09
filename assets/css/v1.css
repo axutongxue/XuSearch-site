@@ -1,0 +1,340 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   V1「轨道 Orbital」
+   骨架：左侧竖排固定侧边栏 · Hero 不对称 5:7 分栏 · 能力区左右交替行
+        · 答疑两栏瀑布流 · 页脚极简单行
+   ══════════════════════════════════════════════════════════════════════════ */
+
+body.v1 { --rail-w: 236px; }
+
+/* ── 左侧侧边栏 ───────────────────────────────────────────────────────── */
+
+.rail {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: var(--rail-w);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  padding: 30px 22px 26px;
+  border-right: 1px solid var(--glass-line);
+  background: rgba(6, 6, 11, 0.72);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+}
+
+.rail-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 4px 6px;
+}
+
+.rail-mark {
+  width: 34px; height: 34px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  color: var(--nebula-lite);
+}
+.rail-mark svg { width: 19px; height: 19px; }
+
+.rail-name { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.rail-name b { font-size: 15px; font-weight: 600; letter-spacing: 0.02em; }
+.rail-name i {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  color: var(--text-lo);
+  white-space: nowrap;
+}
+
+.rail-nav { display: flex; flex-direction: column; gap: 4px; }
+
+.rail-nav a {
+  position: relative;
+  padding: 11px 14px 11px 18px;
+  border-radius: var(--r-s);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-lo);
+  transition: color 0.28s var(--ease), background 0.28s var(--ease);
+}
+.rail-nav a::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 2px; height: 0;
+  border-radius: 2px;
+  transform: translateY(-50%);
+  background: linear-gradient(var(--nebula), var(--aurora));
+  transition: height 0.32s var(--ease);
+}
+.rail-nav a:hover { color: var(--text-mid); background: rgba(255, 255, 255, 0.03); }
+.rail-nav a.active { color: var(--text-hi); background: var(--glass); }
+.rail-nav a.active::before { height: 22px; }
+
+.rail-foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rail-foot .lang-btn { flex: 1; justify-content: center; }
+
+.rail-icon {
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  color: var(--text-lo);
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.rail-icon svg { width: 17px; height: 17px; }
+.rail-icon:hover { color: var(--text-hi); border-color: var(--glass-line-hi); }
+
+/* ── 主舞台 ───────────────────────────────────────────────────────────── */
+
+.stage { margin-left: var(--rail-w); }
+
+.stage-head {
+  max-width: 660px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 62px;
+}
+
+.stage-title {
+  font-size: clamp(32px, 4.4vw, 52px);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+}
+
+.stage-sub { font-size: 16px; color: var(--text-mid); }
+
+/* ── HERO ─────────────────────────────────────────────────────────────── */
+
+.hero {
+  min-height: 100vh;
+  display: grid;
+  /* 5.5:6.5 的微妙不对称 —— 左文案列留够宽度，三个下载按钮能排一行 */
+  grid-template-columns: 5.5fr 6.5fr;
+  gap: 56px;
+  align-items: center;
+  padding: 130px 64px 90px;
+}
+
+/* 替换元素（video）会把 grid item 撑到内容尺寸，必须显式允许收缩，
+   否则溢出被 body 的 overflow-x:hidden 裁掉，看起来像"视频右边被切了" */
+.hero-copy, .hero-screen,
+.row-copy, .row-screen { min-width: 0; }
+
+.hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+
+.hero-title {
+  font-size: clamp(38px, 4.6vw, 62px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.hero-sub {
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--text-mid);
+}
+
+.dl-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.dl-group svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+/* Hero 里的下载按钮收紧一档，让三个能并排排下 */
+.hero .dl-group .btn-primary,
+.hero .dl-group .btn-ghost {
+  padding: 13px 20px;
+  gap: 8px;
+  font-size: 14.5px;
+}
+
+.hero-note {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-lo);
+}
+
+.hero-screen { position: relative; }
+.hero-screen .screen { aspect-ratio: 16 / 9; }
+
+/* 视频背后的星云光斑。
+   横向必须保持 0：窄屏下 hero 变单列、这个光斑会外扩 10% 撑出文档宽度。
+   纵向仍可外扩，blur 会让光晕自然向两侧渗开。 */
+.hero-halo {
+  position: absolute;
+  inset: -14% 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(139, 92, 246, 0.34), transparent 70%);
+  filter: blur(46px);
+}
+
+/* ── 能力：左右交替行 ─────────────────────────────────────────────────── */
+
+.feat { padding: 110px 64px; border-top: 1px solid var(--glass-line); }
+
+.rows { display: flex; flex-direction: column; gap: 30px; }
+
+.row {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 52px;
+  align-items: center;
+  padding: 32px;
+  border-radius: var(--r-xl);
+  border: 1px solid transparent;
+  transition: border-color 0.4s var(--ease), background 0.4s var(--ease);
+}
+.row:hover { border-color: var(--glass-line); background: rgba(255, 255, 255, 0.017); }
+
+/* 偶数行镜像翻转 */
+.row[data-dir="rtl"] { grid-template-columns: 1.18fr 0.82fr; }
+.row[data-dir="rtl"] .row-copy { order: 2; }
+.row[data-dir="rtl"] .row-screen { order: 1; }
+
+.row-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; }
+
+.row-num {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.row-num .mono { color: var(--nebula-lite); }
+.row-num i { font-style: normal; color: var(--text-dim); }
+.row-num::after {
+  content: '';
+  width: 34px; height: 1px;
+  background: linear-gradient(90deg, var(--glass-line-hi), transparent);
+}
+
+.row-copy h3 {
+  font-size: clamp(23px, 2.4vw, 31px);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.row-copy p { font-size: 15.5px; line-height: 1.68; color: var(--text-mid); }
+
+.row-screen { aspect-ratio: 16 / 10; }
+
+/* ── 答疑：两栏瀑布流 ─────────────────────────────────────────────────── */
+
+.tut { padding: 110px 64px; border-top: 1px solid var(--glass-line); }
+
+.qa-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.qa {
+  padding: 30px 32px;
+  border-radius: var(--r-l);
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.qa:hover { border-color: rgba(139, 92, 246, 0.34); transform: translateY(-3px); }
+
+.qa h4 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 11px;
+  letter-spacing: -0.01em;
+}
+.qa h4::before {
+  content: '—';
+  margin-right: 9px;
+  color: var(--nebula-lite);
+}
+.qa p { font-size: 14.5px; line-height: 1.72; color: var(--text-mid); }
+.qa strong { color: var(--text-hi); font-weight: 600; }
+
+/* ── 页脚 ─────────────────────────────────────────────────────────────── */
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 32px 64px 40px;
+  border-top: 1px solid var(--glass-line);
+  font-size: 13.5px;
+  color: var(--text-lo);
+}
+.foot-brand { color: var(--text-mid); font-weight: 600; }
+.foot-sep { color: var(--text-dim); }
+.foot-gap { flex: 1; min-width: 20px; }
+.foot a { color: var(--text-lo); transition: color 0.25s var(--ease); }
+.foot a:hover { color: var(--nebula-lite); }
+.foot-copy { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.04em; }
+
+/* ── 响应式 ───────────────────────────────────────────────────────────── */
+
+/* 窄屏：侧边栏折成顶部横向条 */
+@media (max-width: 1180px) {
+  .rail {
+    right: 0; bottom: auto;
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 22px;
+    padding: 12px 22px;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-line);
+  }
+  .rail-nav { flex-direction: row; gap: 2px; }
+  .rail-nav a { padding: 8px 13px; }
+  .rail-nav a::before { display: none; }
+  .rail-foot { margin-top: 0; margin-left: auto; }
+  .rail-foot .lang-btn { flex: 0 0 auto; }
+  .rail-name i { display: none; }
+  .stage { margin-left: 0; padding-top: 74px; }
+}
+
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; gap: 44px; padding: 70px 34px 60px; }
+  .row,
+  .row[data-dir="rtl"] { grid-template-columns: 1fr; gap: 26px; padding: 22px; }
+  .row[data-dir="rtl"] .row-copy,
+  .row[data-dir="rtl"] .row-screen { order: 0; }
+  .qa-grid { grid-template-columns: 1fr; }
+  .feat, .tut { padding: 76px 34px; }
+  .foot { padding: 26px 34px 34px; }
+  .foot-copy { width: 100%; }
+}
+
+@media (max-width: 640px) {
+  .rail { flex-wrap: wrap; gap: 12px 16px; }
+  .rail-name b { font-size: 14px; }
+  .hero-title { font-size: 34px; }
+  .stage-head { margin-bottom: 42px; }
+  .dl-group { width: 100%; }
+  .dl-group .btn-primary,
+  .dl-group .btn-ghost { flex: 1 1 auto; justify-content: center; }
+}

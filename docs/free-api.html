@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>免费 AI 大模型 API 推荐 — 虚空搜索 XuSearch</title>
+  <meta name="description" content="推荐一些完全免费且足够用于 AI 总结的大模型 API：Agnes、Ollama、魔搭 ModelScope、硅基流动、智谱 BigModel 等，附 Base URL、API Key 与模型名配置方法。" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070710'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%238B5CF6' stroke-width='3.5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2322D3EE'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../assets/css/fonts.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="docs.css" />
+</head>
+<body>
+
+  <!-- 顶栏：左品牌，右返回官网 -->
+  <header class="doc-bar">
+    <a class="doc-bar-home" href="../index.html">
+      <span class="bar-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></span>
+      <span class="bar-name">虚空搜索</span>
+      <span class="bar-slash">/</span>
+      <span class="bar-en mono">XUSEARCH</span>
+    </a>
+    <a class="doc-bar-back" href="index.html">← 返回教程总览</a>
+  </header>
+
+  <main class="doc-main">
+
+    <!-- 标题区 -->
+    <div class="doc-head">
+      <h1 class="grad">免费 AI 大模型 API 推荐</h1>
+      <p class="doc-meta">最后更新 2026-10-05</p>
+      <p class="doc-lead">推荐一些完全免费且足够用于 AI 总结的大模型 API。这里用最不废话、不绕弯子、最简单直接的话告诉你怎么使用。</p>
+    </div>
+
+    <article class="doc-body">
+
+      <h2>🥇 Agnes</h2>
+      <p>Agnes 算是目前能稳定无限 token 使用最聪明一档的免费大模型 API 了</p>
+      <p>注册并登录 Agnes AI 控制台，进入 API Key 管理页面，创建新的密钥后复制：<a href="https://platform.agnes-ai.com/" target="_blank" rel="noopener noreferrer">https://platform.agnes-ai.com/</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/540462/32/1713/28443/6ac0eed6F3ca63bae/093677a198b03155.png" alt="Agnes 控制台的 API Key 管理页面" loading="lazy" />
+      </figure>
+      <p>扩展里面的 Base URL 一栏填写：<code>https://apihub.agnes-ai.com/v1</code></p>
+      <p>API Key 填你刚刚复制的，模型名则填写：<code>agnes-2.5-flash</code>或者<code>agnes-3.0-flash</code></p>
+      <p>免费用户限制<strong>每分钟最大请求次数 20 次</strong>，对于本扩展的 AI 总结使用场景完全够用</p>
+      <p>其中 <code>agnes-2.5-flash</code> 永久免费，<code>agnes-3.0-flash</code> 目前 2026 年 10 月 3 日仍属于限时免费中。后续 <code>agnes-3.0-flash</code> 是否转为收费，或者官方是否又有新的免费模型更新，请以官方最新文档为准：<a href="https://www.agnes-ai.com/zh-Hans/docs/" target="_blank" rel="noopener noreferrer">https://www.agnes-ai.com/zh-Hans/docs/</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/529670/3/13538/31557/6ac0f729F424a42ec/093628427a145a65.png" alt="Agnes 免费模型说明" loading="lazy" />
+      </figure>
+
+      <h2>🥇 Ollama</h2>
+      <p>提供 120b 甚至 550b 参数量的免费大模型 API，并且输出速度还相当不错。官方没有明确的 token 用量说明，不过现在是每月刷新免费用量，注册后不强制填写支付信息，所以不用担心超量扣费问题</p>
+      <p>用邮箱、Github、Google 账号注册并登录 Ollama 控制台，进入 Keys 管理页面，创建新的密钥后复制：<a href="https://ollama.com/search?c=cloud" target="_blank" rel="noopener noreferrer">https://ollama.com/search?c=cloud</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/538112/40/5469/10670/6ac1103bFb9b8028b/09362e81390717e9.png" alt="Ollama Keys 管理页面" loading="lazy" />
+      </figure>
+      <p>然后如今可以在 Usage 页面看到直接看到支持免费使用的模型，2026 年 10 月 3 日目前有 <code>gpt-oss:120b</code>、<code>nemotron-3-ultra</code> 等模型</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/525164/25/15931/12466/6ac11148F56ec087f/09362c6136f9adda.png" alt="Ollama Usage 页面的免费模型列表" loading="lazy" />
+      </figure>
+      <p>但使用时候需要特别注意。点进末尾带 <code>：</code>参数量的模型，以 <code>gpt-oss:120b</code> 为例，需要去浏览器地址栏删除 <code>:120b</code> 后进入具体模型界面，往下翻才能找到正确的可调用模型名，比如这个模型想要通过 API 调用需要填写 <code>gpt-oss:120b-cloud</code></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/536442/31/5739/375249/0050f901Fe2804845/09363b026b7bbc97.gif" alt="进入 Ollama 具体模型界面找出可调用名" loading="lazy" />
+      </figure>
+      <p>末尾不带 <code>：</code>参数量的模型没有这个问题，比如 256K 上下文 550b 参数量的 <a href="https://ollama.com/library/nemotron-3-ultra" target="_blank" rel="noopener noreferrer">nemotron-3-ultra</a> 点进去之后往下翻就能复制到它的实际可调用模型名 <code>nemotron-3-ultra:cloud</code></p>
+      <p>扩展里面的 Base URL 一栏填写：<code>https://ollama.com/v1</code></p>
+      <p>API Key 填你刚刚复制的，模型名推荐填写：<code>nemotron-3-ultra:cloud</code> 或者 <code>gpt-oss:120b-cloud</code></p>
+
+      <h2>🥇 魔搭社区 ModelScope</h2>
+      <p>目前 2026 年 10 月 3 日，<a href="https://modelscope.cn/docs/model-service/API-Inference/limits" target="_blank" rel="noopener noreferrer">魔搭社区已改版为「魔粒」体系</a>，每日免费赠送 250 魔粒，不同模型消耗量不同，选择轻量模型可以完全实现每日免费 AI 总结</p>
+      <p>缺点是使用较麻烦，既要完成魔搭社区账号注册，又要完成阿里云账号绑定＋实名认证</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/538739/10/4059/324461/6ac11938F8f11137d/09362be24295372e.png" alt="魔搭社区魔粒体系说明" loading="lazy" />
+      </figure>
+      <p>这里默认你已经完成上面两步之后，打开魔搭社区的访问令牌后台，创建一个仅读权限的 API Key 即可：<a href="https://modelscope.cn/my/settings/token" target="_blank" rel="noopener noreferrer">https://modelscope.cn/my/settings/token</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/541899/14/824/99918/6ac117fbF1cc64a5b/09363f4183aeb845.png" alt="魔搭社区的访问令牌后台" loading="lazy" />
+      </figure>
+      <p>这里没有具体真实可用的模型，因为可用模型一直在变动。需要自行筛选<strong>支持推理 API-Inference 的文本模型</strong></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/542227/2/375/138383/6ac118fcFe5bd67cd/093672e2f7ac7a02.png" alt="筛选支持推理的文本模型" loading="lazy" />
+      </figure>
+      <p>然后具体调用的模型名，以点进模型之后，点击复制按钮获取到的为准</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/540214/20/2333/54905/6ac11b4fFde311af0/09363880ec9268e7.png" alt="在模型页面点击复制模型名" loading="lazy" />
+      </figure>
+      <p>扩展里面的 Base URL 一栏填写：<code>https://api-inference.modelscope.cn/v1</code></p>
+      <p>API Key 填你刚刚复制的，模型名推荐填写：<code>MiniMax/MiniMax-M1-80k</code>或 <code>inclusionAI/Ling-3.0-flash</code> 或 <code>mistralai/Mistral-Large-Instruct-2407</code></p>
+      <p>以上模型为 2026 年 10 月 3 日实际测试可用，<a href="https://modelscope.cn/models/MiniMax/MiniMax-M1-80k" target="_blank" rel="noopener noreferrer">MiniMax-M1-80k</a> 为原生 1M 百万上下文的 456B 参数模型，<a href="https://modelscope.cn/models/inclusionAI/Ling-3.0-flash" target="_blank" rel="noopener noreferrer">Ling-3.0-flash</a> 为原生 256K 上下文的 124B 参数模型，<a href="https://modelscope.cn/models/mistralai/Mistral-Large-Instruct-2407" target="_blank" rel="noopener noreferrer">Mistral-Large-Instruct-2407</a> 为 128K 上下文的 123B 参数模型</p>
+
+      <h2>🥈 硅基流动</h2>
+      <p>硅基流动提供了一些 10B 以下参数模型可以无限 token 免费使用</p>
+      <p>注册之后点击左侧的 API 密钥页面，创建新的密钥后复制：<a href="https://cloud.siliconflow.cn/i/snHnLED8" target="_blank" rel="noopener noreferrer">https://cloud.siliconflow.cn/</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/540443/15/2028/38087/6ac11f43Fc4b9f067/09364ed1be09a649.png" alt="硅基流动的 API 密钥页面" loading="lazy" />
+      </figure>
+      <p>然后来到模型广场，点击筛选器，筛选 10B 以下的对话模型</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/530469/4/11443/349717/6ac11faaF37928608/093677a39cd04433.png" alt="模型广场筛选 10B 以下对话模型" loading="lazy" />
+      </figure>
+      <p>这里强调一下，<strong>10B 以下存在完全免费的模型 ≠ 10B 以下模型都完全免费</strong></p>
+      <p>就比如 GLM-4-9B 完全免费，但 Qwen3.5-9B 仍旧是收费的。所以具体调用时候请自行看清楚价格</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/527485/5/11737/257262/6ac12007F8c4f45eb/093676c3735d3884.png" alt="免费与收费模型的示例对比" loading="lazy" />
+      </figure>
+      <p>最后配置时，扩展里面的 Base URL 一栏填写：<code>https://api.siliconflow.cn/v1/</code></p>
+      <p>API Key 填你刚刚复制的，模型名推荐填写：<code>deepseek-ai/DeepSeek-R1-0528-Qwen3-8B</code></p>
+
+      <h2>🥈 智谱 BigModel</h2>
+      <p>智谱提供了一些模型可以无限 token，永久免费使用，缺点就是实际可用模型参数量较低，智力比较落后</p>
+      <p>注册并登录 BigModel 官网之后，点击页面右上角进入<strong>控制台</strong>，然后找到页面左侧目录的 API Key，新建 API Key 并复制：<a href="https://www.bigmodel.cn/invite?icode=JB5agLmbejKZhl94rwPbQuZLO2QH3C0EBTSr%2BArzMw4%3D" target="_blank" rel="noopener noreferrer">https://www.bigmodel.cn</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/528185/32/12186/43468/6ac0f147F0a8537a5/093677a2006e48d4.png" alt="BigModel 控制台的 API Key 页面" loading="lazy" />
+      </figure>
+      <p>扩展里面的 Base URL 一栏填写：<code>https://open.bigmodel.cn/api/paas/v4</code></p>
+      <p>API Key 填你刚刚复制的，模型名推荐填写：<code>GLM-4-Flash-250414</code></p>
+      <div class="doc-note">
+        <strong>注：</strong>智谱 BigModel 上的 30B 参数 200K 的 <code>GLM-4.7-Flash</code> 虽然永久免费能力挺好，但是调用人数太多，实际使用几乎都会超时无法使用。<a href="https://docs.bigmodel.cn/cn/guide/models/free/glm-4-flash-250414" target="_blank" rel="noopener noreferrer">GLM-4-Flash-250414</a> 具备 128K 上下文在文本总结这个场景还是可以用一用的。未来是否会有更多免费模型，请参看官方 API 计费文档：https://docs.bigmodel.cn/cn/guide/start/pricing
+      </div>
+
+      <h2>🥈 小红书</h2>
+      <p>注册并登录 Dots API 开放平台，进入 API Key 管理页面，创建新的 API Key 之后复制：<a href="https://dots.ai/platform/" target="_blank" rel="noopener noreferrer">https://dots.ai/platform/</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/535448/8/7396/28805/6ac0f5f4Fe73483d1/0936574163f2d73c.png" alt="Dots API 的 API Key 管理页面" loading="lazy" />
+      </figure>
+      <p>扩展里面的 Base URL 一栏填写：<code>https://note3-prev-api.askdiandian.com/v1</code></p>
+      <p>API Key 填你刚刚复制的，模型名则填写：<code>dots3-note-prev</code></p>
+      <p>目前 2026 年 10 月 3 日，<code>dots3-note-prev</code>模型仍属于限时免费中，具体什么时候恢复收费请以官方最新文档为准：<a href="https://dots.ai/platform/docs" target="_blank" rel="noopener noreferrer">https://dots.ai/platform/docs</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/532307/23/11701/21829/6ac0f6baFa110e037/093627523efebbb3.png" alt="小红书 Dots 免费模型说明" loading="lazy" />
+      </figure>
+
+      <h2>🥈 书生</h2>
+      <p><strong>每月送 9000 万 Token</strong>（输入 9000 万，输出 9000 万），对于低频使用场景还是够用的，但建议是随时登录后台关注一下免费额度余量</p>
+      <p>使用方法为注册并登录书生 AI 控制台，进入获取个人密钥管理页面，创建新的密钥后复制：<a href="https://internlm.intern-ai.org.cn/api/tokens" target="_blank" rel="noopener noreferrer">https://internlm.intern-ai.org.cn/api/tokens</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/529887/40/11915/34540/6ac10973F98ea8452/093643d190ecc69d.png" alt="书生 AI 的个人密钥管理页面" loading="lazy" />
+      </figure>
+      <p>扩展里面的 Base URL 一栏填写：<code>https://chat.intern-ai.org.cn/api/v1</code></p>
+      <p>API Key 填你刚刚复制的，模型名推荐填写：<code>intern-latest</code></p>
+      <p><code>intern-latest</code> 会默认指向他们最新发布的 Intern 系列模型，当前是 256K 上下文的 <code>intern-s2</code></p>
+      <p>更多可用模型请查看官方文档：<a href="https://internlm.intern-ai.org.cn/api/document" target="_blank" rel="noopener noreferrer">https://internlm.intern-ai.org.cn/api/document</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/541682/39/827/83466/6ac10a6fF1b1756f0/09363af2a798b645.png" alt="书生免费模型说明" loading="lazy" />
+      </figure>
+
+      <h2>🥉 百灵</h2>
+      <p>原百灵平台提供每日免费 50 万 token，现改版之后是每月 1 号向使用者提供价值 10 元的 Token 抵用券。如果你 AI 总结的用量不大，也是可以用一下这个 API</p>
+      <p>此为 2026 年 10 月 3 日信息，具体最新政策请以官方最新文档为准：<a href="https://developer.ant-ling.com/zh-CN/docs/getting-started/changelog/billing-upgrade/" target="_blank" rel="noopener noreferrer">https://developer.ant-ling.com/zh-CN/docs/getting-started/changelog/billing-upgrade/</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/528250/12/12584/37411/6ac0f9d7F0d2c05bf/0936272233fbc1f3.png" alt="百灵计费政策说明" loading="lazy" />
+      </figure>
+      <p>使用方法为注册并登录百灵计费平台，进入 API Key 管理页面，创建新的 API Key 之后复制：<a href="https://chat.ant-ling.com/platform/account" target="_blank" rel="noopener noreferrer">https://chat.ant-ling.com/platform/account</a></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/536280/20/6508/18466/6ac0f90dFc7fc2b50/093642c153063129.png" alt="百灵 API Key 管理页面" loading="lazy" />
+      </figure>
+      <p>扩展里面的 Base URL 一栏填写：<code>https://api.ant-ling.com/v1</code></p>
+      <p>API Key 填你刚刚复制的，模型推荐使用定价更低的：<code>Ling-3.0-flash</code></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/542417/9/157/35020/6ac0fa6dF166cf5f8/09362792d61218c7.png" alt="百灵模型配置页" loading="lazy" />
+      </figure>
+    </article>
+
+    <!-- 页脚 -->
+    <footer class="doc-foot">
+      <a href="index.html">← 返回教程总览</a>
+      <span class="mono">© 2026 XUSEARCH</span>
+    </footer>
+
+  </main>
+
+  <script src="toc.js"></script>
+  <script src="copy-code.js"></script>
+</body>
+</html>

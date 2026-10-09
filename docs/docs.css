@@ -1,0 +1,507 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   虚空搜索 XuSearch — 教程文档排版
+   依赖 assets/css/base.css 的设计令牌（深空底色 / 星云色 / 玻璃拟态）。
+   写新教程：复制 template.html，只改正文，不要动这个文件。
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 顶栏 ─────────────────────────────────────────────────────────────── */
+
+.doc-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;                  /* 与首页固定 .bar 等高，切页顶部不再跳 */
+  padding: 0 26px;               /* 左内边距与首页 .bar 一致，home+文案不右移 */
+  background: rgba(5, 5, 9, 0.62);   /* 与首页 .bar 一致 */
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--glass-line);
+}
+
+/* 左上角「返回官网」沿用首页 bar-brand 样式，标记换成房子图标 */
+.doc-bar-home { display: flex; align-items: center; gap: 9px; }
+.doc-bar-home .bar-mark {
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border-radius: 9px;
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  color: var(--nebula-lite);
+}
+.doc-bar-home .bar-mark svg { width: 16px; height: 16px; }
+.doc-bar-home .bar-name { font-size: 18px; font-weight: 600; letter-spacing: 0.02em; }
+.doc-bar-home .bar-slash { color: var(--text-dim); }
+.doc-bar-home .bar-en {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-lo);
+}
+.doc-bar-home:hover .bar-mark { border-color: var(--glass-line-hi); }
+
+.doc-bar-back {
+  font-size: 13px;
+  color: var(--text-mid);
+  transition: color 0.25s var(--ease);
+}
+
+.doc-bar-back:hover { color: var(--nebula-lite); }
+
+/* ── 正文列 ───────────────────────────────────────────────────────────── */
+
+.doc-main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 32px 96px;
+}
+
+/* 标题区 */
+.doc-head { margin-bottom: 48px; }
+
+.doc-head h1 {
+  font-size: clamp(30px, 4.6vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+/* 适用版本 / 更新日期 一行 */
+.doc-meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-lo);
+}
+
+.doc-lead {
+  margin-top: 18px;
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: var(--text-hi);
+}
+
+/* ── 正文元素 ─────────────────────────────────────────────────────────── */
+
+.doc-body {
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: var(--text-mid);
+}
+
+.doc-body strong { color: var(--text-hi); font-weight: 600; }
+
+.doc-body a {
+  color: var(--nebula-lite);
+  text-decoration: underline;
+  text-decoration-color: rgba(167, 139, 250, 0.35);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.25s var(--ease);
+}
+
+.doc-body a:hover { text-decoration-color: var(--nebula-lite); }
+
+.doc-body h2 {
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--text-hi);
+  letter-spacing: -0.01em;
+  margin: 56px 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 标题左侧的星云渐变竖条 */
+.doc-body h2::before {
+  content: '';
+  flex-shrink: 0;
+  width: 4px;
+  height: 20px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--nebula), var(--aurora));
+}
+
+.doc-body h3 {
+  font-size: 17.5px;
+  font-weight: 600;
+  color: var(--text-hi);
+  margin: 36px 0 12px;
+}
+
+.doc-body h4 {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--text-hi);
+  margin: 28px 0 10px;
+}
+
+.doc-body h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin: 24px 0 10px;
+}
+
+.doc-body h6 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin: 20px 0 8px;
+}
+
+.doc-body p { margin-bottom: 14px; }
+
+/* 有序列表（操作步骤）：星云色等宽序号 */
+.doc-body ol {
+  list-style: none;
+  counter-reset: step;
+  margin: 0 0 18px;
+}
+
+.doc-body ol > li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 10px;
+}
+
+.doc-body ol > li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--nebula-lite);
+}
+
+/* 无序列表 */
+.doc-body ul {
+  list-style: none;
+  margin: 0 0 18px;
+}
+
+.doc-body ul > li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+
+.doc-body ul > li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--nebula);
+}
+
+/* 截图 */
+.doc-body figure { margin: 24px 0 28px; }
+
+.doc-body figure img {
+  width: 100%;
+  border: 1px solid var(--glass-line);
+  border-radius: var(--r-m);
+  background: var(--void-2);
+}
+
+.doc-body figcaption {
+  margin-top: 10px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--text-lo);
+}
+
+/* 行内代码与代码块 */
+.doc-body code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  color: var(--nebula-lite);
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  border-radius: 6px;
+  padding: 1px 7px;
+}
+
+.doc-body pre {
+  background: var(--void-2);
+  border: 1px solid var(--glass-line);
+  border-radius: var(--r-s);
+  padding: 16px 20px;
+  overflow-x: auto;
+  margin: 0 0 18px;
+}
+
+.doc-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-mid);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* 提示 / 注意 两种标注框 */
+.doc-note,
+.doc-warn {
+  border-radius: var(--r-s);
+  padding: 14px 18px;
+  margin: 0 0 18px;
+  font-size: 14.5px;
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  border-left: 3px solid var(--aurora);
+}
+
+.doc-warn { border-left-color: var(--flare); }
+
+.doc-note strong,
+.doc-warn strong { display: inline; }
+
+/* 分隔线 */
+.doc-body hr {
+  border: none;
+  border-top: 1px solid var(--glass-line);
+  margin: 48px 0;
+}
+
+/* ── 页脚 ─────────────────────────────────────────────────────────────── */
+
+.doc-foot {
+  margin-top: 72px;
+  padding-top: 24px;
+  border-top: 1px solid var(--glass-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.doc-foot a {
+  color: var(--text-mid);
+  transition: color 0.25s var(--ease);
+}
+
+.doc-foot a:hover { color: var(--nebula-lite); }
+
+.doc-foot .mono {
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-lo);
+}
+
+/* 跳转目标不被吸顶栏挡住 */
+.doc-body h2, .doc-body h3, .doc-body h4, .doc-body h5, .doc-body h6 { scroll-margin-top: 72px; }
+
+/* ── 左侧文章目录（宽屏才显示，窄屏隐藏） ────────────────────────────── */
+
+.doc-toc {
+  position: fixed;
+  top: 88px;
+  left: max(12px, calc(50vw - 664px));
+  width: 268px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  padding: 8px 0 24px;
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .doc-toc { display: block; }
+}
+
+/* 树形：li 带子级标题时可折叠，h2（二级目录）为始终展开的顶层，h2 之下可逐层收起 */
+.doc-toc ul { list-style: none; margin: 0; padding: 0; }
+.doc-toc li { position: relative; }
+.doc-toc li > ul { margin-left: 18px; }
+
+/* 折叠/展开按钮：明显的可点击区 + 悬停反馈 */
+.doc-toc .toc-toggle {
+  position: absolute;
+  left: 1px;
+  top: 6px;
+  width: 22px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-hi); /* 白色，更显眼 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.doc-toc .toc-toggle:hover {
+  background: var(--glass);
+}
+.doc-toc .toc-toggle::before {
+  content: '▾';
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 700;
+  transition: transform 0.2s var(--ease);
+}
+.doc-toc li.collapsed > .toc-toggle::before { transform: rotate(-90deg); }
+.doc-toc li.collapsed > ul { display: none; }
+
+/* 二级目录当作分组标题，更醒目 */
+.doc-toc .lv2 > .toc-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-hi);
+  letter-spacing: 0.01em;
+  margin: 12px 0 4px;
+}
+
+/* 子层级链接 */
+.doc-toc .toc-link {
+  display: block;
+  padding: 6px 10px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-mid);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 8px;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.doc-toc .toc-li.lv3 > .toc-link,
+.doc-toc .toc-li.lv4 > .toc-link,
+.doc-toc .toc-li.lv5 > .toc-link,
+.doc-toc .toc-li.lv6 > .toc-link {
+  padding-left: 26px;
+  font-size: 13px;
+  color: var(--text-hi); /* 统一白色 */
+}
+.doc-toc .toc-link:hover { color: var(--text-hi); background: var(--glass); }
+.doc-toc .toc-link.active {
+  color: #fff;
+  font-weight: 600;
+  background: rgba(139, 92, 246, 0.32);       /* 不透明的紫底，更清晰 */
+  box-shadow: inset 3px 0 0 var(--nebula);     /* 左侧星云色竖条标明当前项 */
+}
+
+/* ── 教程总览页：卡片索引 ────────────────────────────────────────────── */
+
+.idx-main {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 72px 32px 96px;
+}
+
+.idx-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 40px;
+}
+
+.tut-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 24px;
+  border: 1px solid var(--glass-line);
+  border-radius: var(--r-m);
+  background: var(--glass);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.tut-card:hover {
+  border-color: var(--glass-line-hi);
+  background: var(--glass-hi);
+  transform: translateY(-2px);
+}
+
+.tut-no {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--nebula-lite);
+  border: 1px solid var(--glass-line-hi);
+  background: var(--void-2);
+}
+
+.tut-card h2 {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--text-hi);
+  letter-spacing: -0.01em;
+}
+
+.tut-card p {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-mid);
+}
+
+.tut-go {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 14px;
+  color: var(--nebula-lite);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .idx-main { padding: 48px 20px 72px; }
+  .tut-card { flex-wrap: wrap; }
+  .tut-go { margin-left: 0; }
+}
+
+/* ── 代码块：一键复制按钮 ────────────────────────────────────────────── */
+
+.doc-body pre { position: relative; }
+
+.code-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 11.5px;
+  padding: 2px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+
+.code-copy:hover {
+  color: var(--text-hi);
+  border-color: var(--glass-line-hi);
+  background: var(--glass-hi);
+}
+
+.code-copy.copied {
+  color: var(--nebula-lite);
+  border-color: var(--nebula);
+}
+
+@media (max-width: 640px) {
+  .doc-bar { padding: 12px 20px; }
+  .doc-main { padding: 40px 20px 72px; }
+  .doc-body h2 { font-size: 20px; }
+}
