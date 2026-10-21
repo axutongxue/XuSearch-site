@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firefox 扩展使用说明与安装指南 — 虚空搜索 XuSearch</title>
+  <meta name="description" content="在 Firefox 上使用虚空搜索扩展：更换 ESR / Developer Edition / Nightly 版本、关闭签名校验、本地安装 xpi 的完整步骤。" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070710'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%238B5CF6' stroke-width='3.5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2322D3EE'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../assets/css/fonts.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="docs.css" />
+</head>
+<body>
+
+  <!-- 顶栏：左「房子图标 + 虚空搜索」返回官网，右返回教程总览 -->
+  <header class="doc-bar">
+    <a class="doc-bar-home" href="../index.html">
+      <span class="bar-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></span>
+      <span class="bar-name">虚空搜索</span>
+      <span class="bar-slash">/</span>
+      <span class="bar-en mono">XUSEARCH</span>
+    </a>
+    <a class="doc-bar-back" href="index.html">返回教程总览 →</a>
+  </header>
+
+  <main class="doc-main">
+
+    <!-- 标题区 -->
+    <div class="doc-head">
+      <h1 class="grad">Firefox 扩展使用说明与安装指南</h1>
+      <p class="doc-meta">更新日期 2026-10-14</p>
+    </div>
+
+    <article class="doc-body">
+
+      <p>由于三番五次在 Firefox 商店尝试上架，都被审核员强制停用。甚至平台对我的开发者账号也进行了封号处理，禁止我再提交另外的扩展，所以抱歉无法提供直接的 Firefox 附加组件安装链接</p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271118/537277/12/932/194238/6acf87e1F23ca8593/09363eb2cc66537e.png" alt="Firefox 商店审核停用说明" loading="lazy" />
+      </figure>
+      <p>同时由于 Firefox 正式版浏览器只认经过商店签名的扩展，无法直接通过本地加载方式安装</p>
+      <p>所以通过 Chromium 内核浏览器来使用本扩展是最简单的办法（Chrome、Edge 等常见浏览器）</p>
+
+      <h2>更换 Firefox 版本</h2>
+      <p>如果是实在是需要在 Firefox 上使用本扩展，<strong>可以通过更换 Developer Edition／ESR／Nightly 版本的 Firefox 来实现</strong></p>
+
+      <h3>Firefox ESR</h3>
+      <ul>
+        <li>官网下载地址（选择 ESR 延长支持版，支持 Windows／Mac／Linux）：<a href="https://www.mozilla.org/firefox/enterprise/#download" target="_blank" rel="noopener noreferrer">https://www.mozilla.org/firefox/enterprise/#download</a></li>
+        <li>便携版（仅支持 Windows）：<a href="https://portableapps.com/apps/internet/firefox-portable-esr" target="_blank" rel="noopener noreferrer">https://portableapps.com/apps/internet/firefox-portable-esr</a></li>
+      </ul>
+
+      <h3>Firefox Developer Edition</h3>
+      <ul>
+        <li>官网下载地址：<a href="https://www.mozilla.org/firefox/developer/" target="_blank" rel="noopener noreferrer">https://www.mozilla.org/firefox/developer/</a></li>
+      </ul>
+
+      <h3>Firefox Nightly</h3>
+      <ul>
+        <li>官网下载地址：<a href="https://www.mozilla.org/firefox/channel/desktop/#nightly" target="_blank" rel="noopener noreferrer">https://www.mozilla.org/firefox/channel/desktop/#nightly</a></li>
+      </ul>
+
+      <h2>装好后的操作</h2>
+      <p>以下步骤适用于上述 3 款浏览器</p>
+      <p>安装好浏览器之后在浏览器地址栏输入 <code>about:config</code> 后回车，对于弹出的风险提示选择<strong>「接受风险并继续」</strong></p>
+      <figure>
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271118/536561/6/14325/22943/6acf8b06F424eed63/0936373239c8675d.png" alt="about:config 风险提示，选择接受风险并继续" loading="lazy" />
+      </figure>
+      <p>然后再在搜索框输入 <code>xpinstall.signatures.required</code>，点击 ⇌ 按钮，把值从 <code>true</code> 改成 <code>false</code></p>
+      <figure>
+        <img src="https://wework.qpic.cn/wwpic3az/433275_M3nHuwAPQBuHv1b_1791986647/0" alt="把 xpinstall.signatures.required 改为 false" loading="lazy" />
+      </figure>
+      <p>然后大概率你需要去浏览器地址栏输入 <code>about:preferences#languages</code>，找到 Languages 设置来把浏览器语言改为中文</p>
+      <figure>
+        <img src="https://wework.qpic.cn/wwpic3az/815153_Vna4D5HOR1aYFAJ_1791986745/0" alt="在 Languages 设置里把语言改为中文" loading="lazy" />
+      </figure>
+      <p>然后我们点击这里下载 Firefox 版本扩展的本地安装包：夸克网盘、百度网盘</p>
+      <p>最后的安装就很简单了：</p>
+      <ul>
+        <li>方法 A：直接把扩展的 xpi 文件拖进 Firefox 窗口 ➔ 弹出的安装框点击「添加」即可</li>
+        <li>方法 B：地址栏输入 <code>about:addons</code> 后回车访问 ➔ 右上齿轮 ➔ 从文件安装附加组件 ➔ 选择本地的扩展 xpi 文件</li>
+      </ul>
+      <figure>
+        <img src="https://wework.qpic.cn/wwpic3az/346818_YHE6xN7wSMObwPZ_1791986886/0" alt="从文件安装附加组件" loading="lazy" />
+      </figure>
+      <p>最后就可以在 Firefox 中正常使用扩展了</p>
+      <figure>
+        <img src="https://wework.qpic.cn/wwpic3az/140772_cPu4VRCoSa6g3EN_1791987030/0" alt="在 Firefox 中正常使用扩展" loading="lazy" />
+      </figure>
+    </article>
+
+    <!-- 页脚 -->
+    <footer class="doc-foot">
+      <a href="index.html">← 返回教程总览</a>
+      <span class="mono">© 2026 XUSEARCH</span>
+    </footer>
+
+  </main>
+
+  <script src="toc.js"></script>
+  <script src="copy-code.js"></script>
+</body>
+</html>
