@@ -56,27 +56,34 @@
         <p class="hero-sub reveal" style="transition-delay:.12s">一键把你的问题同时发给多个 AI 网站，并排查看回答，实现快速比较、交叉验证<br>一眼高低，去芜存菁</p>
 
         <div class="dl-group reveal" style="transition-delay:.18s">
-          <button class="btn-primary" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-              <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3.8" />
-              <path d="M12 3.2v5.2M20.7 16.4l-4.5-2.6M3.3 16.4l4.5-2.6" />
-            </svg>
-            <span >Chrome</span>
-          </button>
-          <button class="btn-ghost" type="button">
+          <div class="dl-item" id="chromeItem">
+            <button class="btn-primary" type="button" id="chromeMenuBtn" aria-haspopup="true" aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3.8" />
+                <path d="M12 3.2v5.2M20.7 16.4l-4.5-2.6M3.3 16.4l4.5-2.6" />
+              </svg>
+              <span>Chrome</span>
+              <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg>
+            </button>
+            <div class="dl-menu" role="menu" aria-label="Chrome 安装方式">
+              <a role="menuitem" href="https://chromewebstore.google.com/detail/jhagfpadglmgcdenndafaaahfhhpflji" target="_blank" rel="noopener noreferrer">前往商店</a>
+              <a role="menuitem" href="docs/chrome-install.html">本地安装</a>
+            </div>
+          </div>
+          <a class="btn-ghost" href="https://microsoftedge.microsoft.com/addons/detail/ighncgbgpjcehaiabpholbaohcbjecpg" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
               <path d="M20.5 12.4c0-4.7-3.8-8.4-8.5-8.4S3.5 7.7 3.5 12.4s3.8 8.5 8.5 8.5" />
               <path d="M3.7 14.3h11.1c3 0 5.5-2.4 5.5-5.4" />
             </svg>
             <span >Edge</span>
-          </button>
-          <button class="btn-ghost" type="button">
+          </a>
+          <a class="btn-ghost" href="docs/firefox-guide.html">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
               <circle cx="12" cy="12" r="6.4" /><path d="M12 5.6A6.4 6.4 0 0 1 18.4 12" />
               <path d="M4.4 9.6C6.3 6.7 9 5.2 12 5.2" />
             </svg>
             <span >Firefox</span>
-          </button>
+          </a>
         </div>
         <p class="hero-note reveal" style="transition-delay:.24s">代码开源 · 本地执行 · 无隐私风险</p>
       </div>
@@ -288,9 +295,6 @@
     <a href="#features">能力</a>
     <a href="#tutorial">答疑</a>
   </nav>
-
-  <!-- 上架占位提示 toast -->
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="assets/js/shared.js"></script>
   <script src="assets/js/site.js"></script>
