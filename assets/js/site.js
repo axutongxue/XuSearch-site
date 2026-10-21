@@ -124,21 +124,25 @@
     });
   }
 
-  /* ── 上架占位 toast：点击下载按钮弹出提示 ──────────────────────── */
+  /* ── Chrome 下载按钮：点击展开下拉（前往商店 / 本地安装） ─────────── */
 
-  var toastTimer = 0;
-  function showToast(text) {
-    var t = document.getElementById('toast');
-    if (!t) return;
-    t.textContent = text;
-    t.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2200);
-  }
-
-  Array.prototype.slice.call(document.querySelectorAll('.dl-group button')).forEach(function (b) {
-    b.addEventListener('click', function () {
-      showToast('即将上架，敬请期待');
+  var chromeItem = document.getElementById('chromeItem');
+  var chromeBtn = document.getElementById('chromeMenuBtn');
+  if (chromeItem && chromeBtn) {
+    var setChromeMenu = function (open) {
+      chromeItem.classList.toggle('open', open);
+      chromeBtn.setAttribute('aria-expanded', String(open));
+    };
+    chromeBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setChromeMenu(!chromeItem.classList.contains('open'));
     });
-  });
+    document.addEventListener('click', function () { setChromeMenu(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setChromeMenu(false);
+    });
+    Array.prototype.slice.call(chromeItem.querySelectorAll('.dl-menu a')).forEach(function (a) {
+      a.addEventListener('click', function () { setChromeMenu(false); });
+    });
+  }
 })();
