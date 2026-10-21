@@ -513,6 +513,8 @@ body.menu-open .dock { opacity: 0; pointer-events: none; }
 @media (max-width: 480px) {
   .overlay-nav a { gap: 12px; padding: 14px 4px; }
   .dl-group { width: 100%; }
+  .dl-group .dl-item { flex: 1 1 auto; }
+  .dl-group .dl-item .btn-primary { width: 100%; justify-content: center; }
   .dl-group .btn-primary,
   .dl-group .btn-ghost { flex: 1 1 auto; justify-content: center; }
 }
@@ -527,24 +529,41 @@ body.menu-open .dock { opacity: 0; pointer-events: none; }
   .hero-hint { display: none; }
 }
 
-/* ── 上架占位 toast ─────────────────────────────────────────────── */
-.toast {
-  position: fixed;
+/* ── Chrome 下载按钮的下拉菜单 ───────────────────────────────────── */
+.dl-item { position: relative; }
+.dl-menu {
+  position: absolute;
+  top: calc(100% + 10px);
   left: 50%;
-  bottom: 104px;           /* 避开底部 Dock */
-  transform: translateX(-50%) translateY(14px);
-  z-index: 70;
-  padding: 10px 22px;
-  border-radius: 999px;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 148px;
+  padding: 6px;
+  border-radius: 12px;
   border: 1px solid var(--glass-line-hi);
-  background: rgba(10, 10, 16, 0.92);
+  background: rgba(12, 12, 18, 0.96);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  color: var(--text-hi);
-  font-size: 14px;
-  white-space: nowrap;
+  box-shadow: 0 20px 44px -18px rgba(0, 0, 0, 0.9);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease), visibility 0.2s;
+  z-index: 30;
 }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.dl-item.open .dl-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.dl-menu a {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-mid);
+  white-space: nowrap;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.dl-menu a:hover { background: var(--glass); color: var(--text-hi); }
+.dl-item .caret { width: 13px; height: 13px; margin-left: -4px; opacity: 0.7; }
