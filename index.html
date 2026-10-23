@@ -8,7 +8,10 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070710'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%238B5CF6' stroke-width='3.5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2322D3EE'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="assets/css/fonts.css" />
   <link rel="stylesheet" href="assets/css/base.css" />
-  <link rel="stylesheet" href="assets/css/site.css" />
+  <link rel="stylesheet" href="assets/css/site.css?v=20261022" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/theme.css" />
 </head>
 <body class="v4">
 
@@ -46,7 +49,14 @@
 
     <!-- ─── HERO：满屏沉浸 + 巨型水印 ─────────────────────────── -->
     <section class="hero" id="install">
-      <span class="hero-mark" aria-hidden="true">虚空</span>
+      <!-- 背景：AVIF 动画（原为 cloudfront 视频，替换为同源观感的动图） -->
+      <div class="hero-bg" aria-hidden="true">
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271127/549092/11/5650/970603/00510d04Fd7f28e53/09366ac4bc45b281.avif" alt="" />
+        <span class="hero-bg-shade"></span>
+      </div>
+
+      <!-- 星空层：从下载按钮区开始渐显，与下方 star-zone 无缝衔接 -->
+      <canvas class="star-field hero-stars" data-starfield data-star-fade="top" aria-hidden="true"></canvas>
 
       <div class="hero-inner">
         <span class="chip reveal"><span class="chip-dot"></span><span >一次输入，全域回响</span></span>
@@ -57,7 +67,7 @@
 
         <div class="dl-group reveal" style="transition-delay:.18s">
           <div class="dl-item" id="chromeItem">
-            <button class="btn-primary" type="button" id="chromeMenuBtn" aria-haspopup="true" aria-expanded="false">
+            <button class="btn-ghost" type="button" id="chromeMenuBtn" aria-haspopup="true" aria-expanded="false">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
                 <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3.8" />
                 <path d="M12 3.2v5.2M20.7 16.4l-4.5-2.6M3.3 16.4l4.5-2.6" />
@@ -90,6 +100,10 @@
 
       <span class="hero-hint mono" aria-hidden="true">向下滚动</span>
     </section>
+
+    <!-- 星空区：从首屏之下一直延伸到页面底部，一整片连续背景 -->
+    <div class="star-zone">
+      <canvas class="star-field" data-starfield aria-hidden="true"></canvas>
 
     <!-- ─── 通栏主演示 ────────────────────────────────────────── -->
     <section class="bleed">
@@ -286,6 +300,8 @@
       </div>
     </footer>
 
+    </div><!-- /.star-zone -->
+
   </main>
 
   <!-- ═══ 底部悬浮 Dock（取自 V3 星图） ═══════════════════════════ -->
@@ -297,6 +313,8 @@
   </nav>
 
   <script src="assets/js/shared.js"></script>
-  <script src="assets/js/site.js"></script>
+  <script src="assets/js/site.js?v=20261022"></script>
+  <script src="assets/js/stars.js"></script>
+  
 </body>
 </html>

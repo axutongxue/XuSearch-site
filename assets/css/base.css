@@ -98,7 +98,9 @@ img, video, svg { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 
-::selection { background: rgba(139, 92, 246, 0.35); color: #fff; }
+/* 选中文字：白色玻璃高亮，随站点黑白体系（原为星云紫） */
+::selection { background: rgba(255, 255, 255, 0.22); color: #fff; }
+::-moz-selection { background: rgba(255, 255, 255, 0.22); color: #fff; }
 
 
 /* ── 通用工具类 ──────────────────────────────────────────────────────── */

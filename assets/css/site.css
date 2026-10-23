@@ -118,12 +118,13 @@ body.v4 { --bar-h: 60px; --dock-h: 58px; }
 .overlay.open .overlay-nav a:nth-child(2) { transition-delay: 0.15s; }
 .overlay.open .overlay-nav a:nth-child(3) { transition-delay: 0.22s; }
 .overlay.open .overlay-nav a:nth-child(4) { transition-delay: 0.29s; }
-.overlay-nav a:hover { color: var(--nebula-lite); }
-/* 悬停「浮动」感：整行轻微右移 + 渐变底，提示这一行可点 */
+.overlay-nav a:hover { color: #FFFFFF; }
+/* 悬停「浮动」感：整行轻微右移 + 白色玻璃底，提示这一行可点
+   （随站点黑白主题，不再用原来的星云紫） */
 .overlay.open .overlay-nav a:hover {
   transform: translateX(8px);
   /* 整行都亮（右侧也保留底色），不在右侧淡成透明 */
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.16), rgba(139, 92, 246, 0.06));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
 }
 .overlay-nav a::before {
   content: attr(data-idx);
@@ -257,7 +258,8 @@ body.v4 { --bar-h: 60px; --dock-h: 58px; }
 
 .stage-sub { font-size: 16px; color: var(--text-mid); }
 
-.feat { padding: 110px 46px; border-top: 1px solid var(--glass-line); }
+
+.feat { padding: 110px 46px; border-top: 1px solid var(--glass-line); } 
 
 .rows { display: flex; flex-direction: column; gap: 30px; }
 
@@ -275,7 +277,7 @@ body.v4 { --bar-h: 60px; --dock-h: 58px; }
   border: 1px solid transparent;
   transition: border-color 0.4s var(--ease), background 0.4s var(--ease);
 }
-.row:hover { border-color: var(--glass-line); background: rgba(255, 255, 255, 0.017); }
+/* .row:hover { border-color: var(--glass-line); background: rgba(255, 255, 255, 0.017); } */
 
 /* 偶数行镜像翻转 */
 .row[data-dir="rtl"] { grid-template-columns: 1.18fr 0.82fr; }

@@ -393,82 +393,122 @@
   box-shadow: inset 3px 0 0 var(--nebula);     /* 左侧星云色竖条标明当前项 */
 }
 
-/* ── 教程总览页：卡片索引 ────────────────────────────────────────────── */
+/* ── 教程总览页：标题 + 卡片索引（首页玻璃语言） ─────────────────────── */
 
 .idx-main {
-  max-width: 820px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 72px 32px 96px;
+  padding: 88px 32px 112px;
+}
+
+/* 标题区：小标签 + 渐变大标题 + 导语 */
+.idx-head { margin-bottom: 48px; }
+
+.idx-kicker {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.idx-head h1 {
+  margin-top: 16px;
+  font-size: clamp(34px, 5.2vw, 52px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.idx-lead {
+  margin-top: 14px;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.66);
 }
 
 .idx-list {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  margin-top: 40px;
+  gap: 16px;
 }
 
+/* 卡片：玻璃底 + 描边，悬停上浮提亮（与首页卡片同一语言） */
 .tut-card {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 22px 24px;
-  border: 1px solid var(--glass-line);
+  gap: 22px;
+  padding: 24px 26px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--r-m);
-  background: var(--glass);
-  backdrop-filter: blur(var(--blur));
-  -webkit-backdrop-filter: blur(var(--blur));
-  transition: border-color 0.25s var(--ease), background 0.25s var(--ease), transform 0.25s var(--ease);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease),
+              transform 0.25s var(--ease);
 }
 
 .tut-card:hover {
-  border-color: var(--glass-line-hi);
-  background: var(--glass-hi);
+  border-color: rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.06);
   transform: translateY(-2px);
 }
 
+/* 序号徽标：白色玻璃方块 */
 .tut-no {
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--mono);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
-  color: var(--nebula-lite);
-  border: 1px solid var(--glass-line-hi);
-  background: var(--void-2);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.tut-card h2 {
-  font-size: 19px;
+.tut-main { min-width: 0; }
+
+.tut-title {
+  display: block;
+  font-size: 18.5px;
   font-weight: 600;
-  color: var(--text-hi);
+  color: #FFFFFF;
   letter-spacing: -0.01em;
 }
 
-.tut-card p {
-  margin-top: 6px;
+.tut-desc {
+  display: block;
+  margin-top: 7px;
   font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-mid);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.62);
 }
 
+/* 箭头：悬停时向右滑出一点 */
 .tut-go {
   margin-left: auto;
   flex-shrink: 0;
-  font-size: 14px;
-  color: var(--nebula-lite);
-  white-space: nowrap;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.tut-card:hover .tut-go {
+  color: #FFFFFF;
+  transform: translateX(4px);
 }
 
 @media (max-width: 640px) {
-  .idx-main { padding: 48px 20px 72px; }
-  .tut-card { flex-wrap: wrap; }
-  .tut-go { margin-left: 0; }
+  .idx-main { padding: 56px 20px 80px; }
+  .tut-card { padding: 20px; gap: 16px; align-items: flex-start; }
+  .tut-no { width: 40px; height: 40px; font-size: 12.5px; }
+  .tut-title { font-size: 16.5px; }
 }
 
 /* ── 代码块：一键复制按钮 ────────────────────────────────────────────── */
@@ -504,4 +544,125 @@
   .doc-bar { padding: 12px 20px; }
   .doc-main { padding: 40px 20px 72px; }
   .doc-body h2 { font-size: 20px; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   主题覆盖：对齐首页的黑白风格
+
+   文档页与首页分离维护（首页走 site.css + theme.css），所以这里独立覆盖：
+   把星云紫（--nebula）与青色（--aurora）收敛为白系，字体换成 General Sans。
+   追加在文件末尾 → 优先级最高，不必改动上述任何既有规则。
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --void-0: #000000;
+  --void-1: #000000;
+  --void-2: #0A0A0A;
+  --void-3: #111111;
+
+  --text-hi:  #FFFFFF;
+  --text-mid: rgba(255, 255, 255, 0.70);
+  --text-lo:  rgba(255, 255, 255, 0.48);
+  --text-dim: rgba(255, 255, 255, 0.30);
+
+  /* 原紫/青主色 → 白 */
+  --nebula:      #FFFFFF;
+  --nebula-lite: #FFFFFF;
+  --nebula-deep: #C8C8C8;
+  --aurora:      #FFFFFF;
+  --aurora-deep: #B0B0B0;
+  --flare:       #FFFFFF;
+
+  --glass:         rgba(255, 255, 255, 0.045);
+  --glass-hi:      rgba(255, 255, 255, 0.085);
+  --glass-line:    rgba(255, 255, 255, 0.14);
+  --glass-line-hi: rgba(255, 255, 255, 0.28);
+
+  /* 与首页一致的字体 */
+  --font: 'General Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC',
+          'Microsoft YaHei', sans-serif;
+}
+
+/* ── 底噪：星云光晕换成极淡的白色冷光 ─────────────────────────────── */
+body::before {
+  background:
+    radial-gradient(1000px 620px at 50% -10%, rgba(255, 255, 255, 0.10), transparent 68%),
+    radial-gradient(760px 520px at 18% 20%, rgba(255, 255, 255, 0.05), transparent 62%);
+}
+
+body::after { opacity: 0.35; }
+
+/* ── 顶栏：黑色玻璃（与首页 .bar 同款） ───────────────────────────── */
+.doc-bar {
+  background: rgba(5, 5, 9, 0.62);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.doc-bar-home .bar-mark {
+  border: 1px solid var(--glass-line);
+  background: rgba(255, 255, 255, 0.06);
+  color: #FFFFFF;
+}
+
+/* ── 标题渐变：白 → 透明（首页同款 144.5°） ───────────────────────── */
+.grad {
+  background-image: linear-gradient(144.5deg, #FFFFFF 28%, rgba(0, 0, 0, 0) 115%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── 正文里的强调色：紫 → 白 ─────────────────────────────────────── */
+.doc-body a { color: rgba(255, 255, 255, 0.92); }
+.doc-body a:hover { text-decoration-color: #FFFFFF; }
+
+.doc-body code { color: rgba(255, 255, 255, 0.92); }
+
+.doc-body h2::before {
+  background: linear-gradient(180deg, #FFFFFF, rgba(255, 255, 255, 0.35));
+}
+
+.doc-body ol > li::before { color: rgba(255, 255, 255, 0.55); }
+.doc-body ul > li::before { background: rgba(255, 255, 255, 0.65); }
+
+/* 提示 / 注意 框：左缘改白系（原来分别是青色 / 粉色） */
+.doc-note { border-left-color: rgba(255, 255, 255, 0.50); }
+.doc-warn { border-left-color: rgba(255, 255, 255, 0.78); }
+
+/* ── 左侧目录：当前项改白玻璃高亮（原来是不透明紫底） ──────────────── */
+.doc-toc .toc-link.active {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 3px 0 0 #FFFFFF;
+}
+
+/* ── 代码复制按钮：完成态改白 ─────────────────────────────────────── */
+.code-copy.copied { color: #FFFFFF; border-color: #FFFFFF; }
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   星空背景层（与首页同一套 stars.js）
+
+   结构：<canvas class="star-field" data-starfield> 直接放在 body 开头，
+   固定覆盖整个视口 —— 整页背景，顶栏与正文都压在它之上。
+   · fixed 定位不参与文档流，不撑高页面、不干扰任何布局
+   · 只有视口大小，滚动时星空常驻，省显存
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.star-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* 顶栏与正文整体压在星空之上 */
+body > header,
+body > main {
+  position: relative;
+  z-index: 1;
 }

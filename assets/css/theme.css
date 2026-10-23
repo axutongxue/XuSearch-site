@@ -1,0 +1,426 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   虚空搜索 — Web3 主题皮肤（THEME ONLY）
+
+   ⚠️ 本文件只改「视觉」，绝不改布局。
+   - 不做任何 display / grid / flex / gap / padding / margin / width / height 改动
+   - 只覆盖：颜色、背景、字体、边框、圆角、阴影、字重、字间距、渐变、过渡
+   - 原布局（hero 居中、能力行左右交替、页脚字标、底部 Dock）全部沿用 site.css
+
+   在 index.html 的 </head> 前引入（必须在 site.css 之后）：
+   <link rel="stylesheet" href="assets/css/theme.css" />
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. 设计令牌：把紫色星云换成纯白/玻璃 ─────────────────────────────── */
+:root {
+  --void-0: #000000;
+  --void-1: #000000;
+  --void-2: #0A0A0A;
+  --void-3: #111111;
+
+  --text-hi:  #FFFFFF;
+  --text-mid: rgba(255, 255, 255, 0.70);
+  --text-lo:  rgba(255, 255, 255, 0.48);
+  --text-dim: rgba(255, 255, 255, 0.30);
+
+  /* 原来的紫/青主色全部收敛为白 */
+  --nebula:      #FFFFFF;
+  --nebula-lite: #FFFFFF;
+  --nebula-deep: #C8C8C8;
+  --aurora:      #FFFFFF;
+  --aurora-deep: #B0B0B0;
+  --flare:       #FFFFFF;
+
+  --glass:         rgba(255, 255, 255, 0.045);
+  --glass-hi:      rgba(255, 255, 255, 0.085);
+  --glass-line:    rgba(255, 255, 255, 0.14);
+  --glass-line-hi: rgba(255, 255, 255, 0.28);
+}
+
+/* ── 2. 字体：General Sans ────────────────────────────────────────────── */
+:root {
+  --font: 'General Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC',
+          'Microsoft YaHei', sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: #000;
+}
+
+/* ── 3. 底噪：把星云光晕换成极淡的白色冷光（仍是背景层，不影响排版） ──── */
+body::before {
+  background:
+    radial-gradient(1000px 620px at 50% -10%, rgba(255, 255, 255, 0.10), transparent 68%),
+    radial-gradient(760px 520px at 88% 18%, rgba(255, 255, 255, 0.05), transparent 62%);
+}
+
+body::after {
+  opacity: 0.35;
+}
+
+/* ── 4. 标题渐变：白 → 透明（规格 144.5deg / 28% → 115%） ─────────────── */
+.grad {
+  background-image: linear-gradient(144.5deg, #FFFFFF 28%, rgba(0, 0, 0, 0) 115%);
+  background-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── 5. 按钮：玻璃胶囊（材质与 deploy 一致） ───────────────────────────
+   .btn-primary / .btn-ghost 的底色、描边、模糊、字重、过渡都沿用 base.css，
+   这里只补 position: relative（刀光条需要定位上下文）。 */
+.btn-primary,
+.btn-ghost {
+  position: relative;
+}
+
+/* 内容浮在玻璃层之上（伪元素不遮挡文字与图标） */
+.btn-primary > *,
+.btn-ghost > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 主按钮 */
+.btn-primary {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  color: #0A0A0A;
+  box-shadow: none;
+}
+
+.btn-primary:hover {
+  border-color: rgba(255, 255, 255, 0.5);   /* 悬停描边收淡，不再加粗 */
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.btn-primary svg { stroke: #0A0A0A; }
+
+/* 次按钮：沿用 base.css 的原始「毛玻璃胶囊」材质（与 deploy 的 Edge 按钮一致）
+   白 4% 底 + 9% 描边 + 22px 背景模糊，悬停换成 7.5% 底 + 18% 描边。
+   这里只补两件事：overflow 裁刀光条、内容抬到伪元素之上。 */
+.btn-ghost {
+  overflow: hidden;                              /* 裁掉刀光条的溢出，贴合胶囊圆角 */
+}
+
+.btn-ghost > * {
+  position: relative;
+  z-index: 1;                                    /* 内容浮在刀光条之上 */
+}
+
+/* ── 悬停刀光：每次移入扫过一遍 ───────────────────────────────────────
+   一道 20° 倾斜的窄光条，从左扫到右，0.45 秒结束。
+   用 :hover 驱动 keyframes —— 鼠标一旦移出，动画状态即被重置，
+   所以「移出后再移入」会重新扫一次，而悬停不动时不会反复闪。
+   峰值 25% 白：在深色玻璃上看得见，但不抢文字。 */
+.btn-ghost::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;                 /* 初始停在胶囊左侧之外 */
+  width: 34%;                 /* 光条宽度 */
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(20deg);
+  transform-origin: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.btn-ghost:hover::before {
+  animation: bladeSweep 0.45s ease-out;
+}
+
+@keyframes bladeSweep {
+  0%   { left: -60%; opacity: 0; }
+  12%  {            opacity: 1; }
+  88%  {            opacity: 1; }
+  100% { left: 130%; opacity: 0; }
+}
+
+/* 键盘可达性：用 Tab 聚焦时也扫一次光（与悬停同样的反馈） */
+.btn-ghost:focus-visible::before {
+  animation: bladeSweep 0.45s ease-out;
+}
+
+/* 尊重系统的减弱动效设置 */
+@media (prefers-reduced-motion: reduce) {
+  .btn-ghost:hover::before,
+  .btn-ghost:focus-visible::before { animation: none; }
+}
+
+/* ── 6. 小标签 chip：玻璃胶囊 ────────────────────────────────────────── */
+.chip {
+  border: 1px solid var(--glass-line);
+  background: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-weight: 500;
+}
+
+.chip-dot {
+  background: #FFFFFF;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+}
+
+/* ── 7. 顶栏 / 浮层菜单 / Dock：纯黑玻璃 ─────────────────────────────── */
+.bar {
+  background: rgba(0, 0, 0, 0.55);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.bar-mark {
+  border: 1px solid var(--glass-line);
+  background: rgba(255, 255, 255, 0.06);
+  color: #FFFFFF;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+}
+
+.overlay-nav a {
+  color: #FFFFFF;
+}
+
+.overlay-nav a::before {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.overlay-nav a:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ── Dock：黑色玻璃 ─────────────────────────────────────────────────── */
+.dock {
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 18px 48px -20px rgba(0, 0, 0, 0.95);
+}
+
+.dock a {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.dock a:hover {
+  color: #FFFFFF;
+}
+
+.dock a.active {
+  color: #000000;
+}
+
+/* 滑动指示器：白胶囊 */
+.dock-glider {
+  background: #FFFFFF;
+  box-shadow: 0 6px 20px -6px rgba(255, 255, 255, 0.45);
+}
+
+/* ── 8. 能力卡 / 答疑卡：玻璃边框，去掉紫色描边 ─────────────────────── */
+.screen {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #050505;
+  box-shadow: 0 30px 80px -34px rgba(0, 0, 0, 0.95);
+}
+
+.qa {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.qa:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.qa h4 {
+  color: #FFFFFF;
+}
+
+.qa p {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.qa p strong {
+  color: #FFFFFF;
+}
+
+/* 能力行的编号与元信息 */
+.row-num {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.row-copy h3 {
+  color: #FFFFFF;
+}
+
+.row-copy p {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* ── 9. 页脚：透明，让下方星空透出来 ─────────────────────────────────── */
+.foot {
+  background: transparent;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.foot-col-t {
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.foot-col a {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+.foot-col a:hover {
+  color: #FFFFFF;
+}
+
+.foot-line {
+  color: rgba(255, 255, 255, 0.38);
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+/* 巨型字标：由紫青渐变改为白 → 透明 */
+.foot-giant-t {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.07) 50%, transparent 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── 10. Hero 水印「虚空」：白色淡字 ───────────────────────────────── */
+.hero-mark {
+  background: linear-gradient(175deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 62%, transparent 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── 11. 滚动提示、说明文字：统一白系 ──────────────────────────────── */
+.hero-note,
+.hero-hint {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.stage-sub {
+  color: rgba(255, 255, 255, 0.60);
+}
+
+.hero-sub {
+  color: rgba(255, 255, 255, 0.70);
+}
+
+/* ── 12. Hero 背景动图（绝对定位覆盖层，不参与布局流） ──────────────────
+   原设计是 cloudfront 视频背景，这里换成等价的 AVIF 动画。
+   绝对定位 + inset:0，只覆盖 hero 区域，不撑高、不改变任何已有元素的位置。
+
+   取景：cover 铺满 + object-position: center top —— 保留图片顶部，
+   超出部分从下方裁掉。各比例视口统一用同一策略，不再分档。
+   （图片原图 1708×1212 约 1.41:1；越宽的视口纵向裁得越多，这是 cover 的必然代价。） */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* 万一有留白，用纯黑兜底 */
+  background: #000;
+}
+
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;   /* 保留图片顶部，超出部分从下方裁掉 */
+  display: block;
+}
+
+/* 压暗 + 底部渐隐到纯黑，保证标题可读、并与下方区块自然衔接 */
+.hero-bg-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.55) 55%,
+      rgba(0, 0, 0, 0.85) 88%,
+      #000 100%);
+}
+
+/* 巨型水印字要压在动图之上 */
+.hero-mark {
+  z-index: 1;
+}
+
+/* ── 13. 星空区（原生 Canvas 一整片连续背景）────────────────────────────
+   从首屏之下（「代码开源 · 本地执行 · 无隐私风险」之后）一直延伸到页面底部，
+   通栏主演示、核心能力、常见问题、页脚全部共用同一片星空，中间不断开。 */
+.star-zone {
+  position: relative;
+  isolation: isolate;
+}
+
+/* 画布只按视口大小绘制（避免 6000px 高的超长画布在高分屏上爆显存），
+   用 sticky 让它始终贴住视口，视觉上仍是一整片连续星空。 */
+.star-zone > .star-field {
+  position: sticky;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  margin-bottom: -100vh;   /* 不占文档流高度，叠在内容之下 */
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 内容压在星空之上 */
+.star-zone > .bleed,
+.star-zone > .feat,
+.star-zone > .tut,
+.star-zone > .foot {
+  position: relative;
+  z-index: 1;
+}
+
+/* hero 内的星空层：铺满首屏，从下载按钮区开始渐显，
+   与下方 .star-zone 的星空无缝衔接。压在背景动图之上、文字之下。 */
+.hero .hero-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* hero 文字压在星空之上。
+   注意：不要给 .hero-hint 加 position —— 它在 site.css 里是 absolute + left:50%，
+   改成 relative 会让 left:50% 直接把它推到右侧（曾踩过这个坑）。 */
+.hero .hero-inner {
+  position: relative;
+  z-index: 2;
+}

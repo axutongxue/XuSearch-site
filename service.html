@@ -6,6 +6,8 @@
   <title>添加人工客服 — 虚空搜索 XuSearch</title>
   <meta name="robots" content="noindex, nofollow" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070710'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%238B5CF6' stroke-width='3.5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2322D3EE'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -16,36 +18,43 @@
       align-items: center;
       justify-content: center;
       padding: 28px;
-      color: #F2F2F6;
-      font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+      color: #FFFFFF;
+      font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+      /* 与首页一致：纯黑底 + 极淡的白色冷光 */
       background:
-        radial-gradient(900px 600px at 15% -10%, rgba(139, 92, 246, 0.16), transparent 65%),
-        radial-gradient(800px 520px at 90% 5%, rgba(34, 211, 238, 0.10), transparent 62%),
-        #040407;
+        radial-gradient(1000px 620px at 50% -10%, rgba(255, 255, 255, 0.10), transparent 68%),
+        radial-gradient(760px 520px at 18% 20%, rgba(255, 255, 255, 0.05), transparent 62%),
+        #000000;
       -webkit-font-smoothing: antialiased;
     }
-    .card { width: 100%; max-width: 420px; text-align: center; }
+    /* 卡片压在星空之上 */
+    .card { width: 100%; max-width: 420px; text-align: center; position: relative; z-index: 1; }
     .brand {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       margin-bottom: 26px;
-      color: #9E9EB2;
+      color: rgba(255, 255, 255, 0.70);
       font-size: 13px;
       letter-spacing: 0.02em;
     }
     .brand .dot {
       width: 8px; height: 8px; border-radius: 50%;
-      background: linear-gradient(120deg, #8B5CF6, #22D3EE);
-      box-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+      background: #FFFFFF;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
     }
     h1 {
       margin: 0 0 10px;
       font-size: 25px;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: -0.01em;
+      /* 首页同款 144.5° 白→透明渐变标题 */
+      background-image: linear-gradient(144.5deg, #FFFFFF 28%, rgba(0, 0, 0, 0) 115%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .sub { margin: 0 0 28px; font-size: 14px; color: #9E9EB2; line-height: 1.7; }
+    .sub { margin: 0 0 28px; font-size: 14px; color: rgba(255, 255, 255, 0.70); line-height: 1.7; }
     .qr {
       display: inline-block;
       padding: 16px;
@@ -60,21 +69,39 @@
       height: auto;
       border-radius: 6px;
     }
-    .note { margin: 20px 0 0; font-size: 12.5px; color: #5E5E74; }
+    .note { margin: 20px 0 0; font-size: 12.5px; color: rgba(255, 255, 255, 0.48); }
     .back {
       display: inline-block;
       margin-top: 30px;
       font-size: 13px;
-      color: #9E9EB2;
+      color: rgba(255, 255, 255, 0.70);
       text-decoration: none;
       padding-bottom: 2px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.14);
       transition: color 0.25s ease, border-color 0.25s ease;
     }
-    .back:hover { color: #A78BFA; border-color: #A78BFA; }
+    .back:hover { color: #FFFFFF; border-color: #FFFFFF; }
+
+    /* 选中文字：与全站一致，白色玻璃高亮 */
+    ::selection { background: rgba(255, 255, 255, 0.22); color: #fff; }
+    ::-moz-selection { background: rgba(255, 255, 255, 0.22); color: #fff; }
+
+    /* 星空背景层：固定铺满视口，不参与 body 的 flex 布局（不影响卡片居中） */
+    .star-field {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
+  <!-- 星空背景层（与首页同一套 stars.js） -->
+  <canvas class="star-field" data-starfield aria-hidden="true"></canvas>
+
   <main class="card">
     <span class="brand"><span class="dot"></span>虚空搜索 · XuSearch</span>
     <h1>添加人工客服</h1>
@@ -87,5 +114,7 @@
     <p class="note">长按或截图后，用微信「扫一扫」识别</p>
     <a class="back" href="./">← 返回官网</a>
   </main>
+
+  <script src="assets/js/stars.js"></script>
 </body>
 </html>

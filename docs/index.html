@@ -4,15 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>教程总览 — 虚空搜索 XuSearch</title>
-  <meta name="description" content="虚空搜索 XuSearch 官方使用教程：脚本搭配 WIN+R / Quicker / Alfred / uTools 调用搜索组，以及免费 AI 大模型 API 推荐。" />
+  <meta name="description" content="虚空搜索 XuSearch 官方使用教程：脚本搭配 WIN+R / Quicker / Alfred / uTools 调用搜索组，免费 AI 大模型 API 推荐，以及 Chrome 扩展本地安装指南。" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070710'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%238B5CF6' stroke-width='3.5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2322D3EE'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/fonts.css" />
   <link rel="stylesheet" href="../assets/css/base.css" />
   <link rel="stylesheet" href="docs.css" />
 </head>
 <body>
+  <!-- 星空背景：整页固定层（与首页同一套 stars.js） -->
+  <canvas class="star-field" data-starfield aria-hidden="true"></canvas>
 
-  <!-- 顶栏：左品牌，右返回官网 -->
+
+  <!-- 顶栏：左「房子图标 + 虚空搜索」返回官网 -->
   <header class="doc-bar">
     <a class="doc-bar-home" href="../index.html">
       <span class="bar-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></span>
@@ -25,43 +30,57 @@
 
   <main class="idx-main">
 
+
     <!-- 标题区 -->
-    <div class="doc-head">
+    <header class="idx-head">
+      <span class="idx-kicker">DOCUMENTATION</span>
       <h1 class="grad">教程总览</h1>
-      <p class="doc-lead">官方使用文档与搭配指南，按需阅读。</p>
-    </div>
+      <p class="idx-lead">官方使用文档与搭配指南。按需阅读，遇到问题也可先看这里。</p>
+    </header>
 
     <!-- 卡片索引 -->
     <div class="idx-list">
+
       <a class="tut-card" href="script-tutorial.html">
         <span class="tut-no">01</span>
-        <div>
-          <h2>扩展搭配脚本实现电脑全局搜索教程</h2>
-          <p>Windows 与 MacOS：用 WIN+R 直接调用，或搭配 Quicker / Alfred / uTools 一键批量搜索，含脚本闪退与权限问题排查。</p>
-        </div>
-        <span class="tut-go">进入 →</span>
+        <span class="tut-main">
+          <span class="tut-title">扩展搭配脚本实现电脑全局搜索</span>
+          <span class="tut-desc">Windows 与 MacOS：用 WIN+R 直接调用，或搭配 Quicker / Alfred / uTools 一键批量搜索，含脚本闪退与权限排查。</span>
+        </span>
+        <span class="tut-go" aria-hidden="true">→</span>
       </a>
 
       <a class="tut-card" href="free-api.html">
         <span class="tut-no">02</span>
-        <div>
-          <h2>免费 AI 大模型 API 推荐</h2>
-          <p>完全免费、够用于 AI 总结的模型 API，附 Base URL、API Key 与模型名配置方法。</p>
-        </div>
-        <span class="tut-go">进入 →</span>
+        <span class="tut-main">
+          <span class="tut-title">免费 AI 大模型 API 推荐</span>
+          <span class="tut-desc">完全免费、够用于 AI 总结的模型 API，附 Base URL、API Key 与模型名配置方法。</span>
+        </span>
+        <span class="tut-go" aria-hidden="true">→</span>
       </a>
 
       <a class="tut-card" href="chrome-install.html">
         <span class="tut-no">03</span>
-        <div>
-          <h2>Chrome 扩展下载与本地安装</h2>
-          <p>无法打开 Chrome 扩展程序商店时，下载 crx 扩展包并本地加载安装的完整步骤。</p>
-        </div>
-        <span class="tut-go">进入 →</span>
+        <span class="tut-main">
+          <span class="tut-title">Chrome 扩展下载与本地安装</span>
+          <span class="tut-desc">无法打开 Chrome 扩展程序商店时，下载 crx 扩展包并本地加载安装的完整步骤。</span>
+        </span>
+        <span class="tut-go" aria-hidden="true">→</span>
       </a>
+
+      <a class="tut-card" href="firefox-guide.html">
+        <span class="tut-no">04</span>
+        <span class="tut-main">
+          <span class="tut-title">Firefox 扩展使用说明与安装指南</span>
+          <span class="tut-desc">更换 ESR / Developer Edition / Nightly 版本、关闭签名校验、本地安装 xpi 的完整步骤。</span>
+        </span>
+        <span class="tut-go" aria-hidden="true">→</span>
+      </a>
+
     </div>
 
   </main>
 
+  <script src="../assets/js/stars.js"></script>
 </body>
 </html>

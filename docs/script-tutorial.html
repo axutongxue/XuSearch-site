@@ -6,11 +6,16 @@
   <title>脚本使用教程 — 虚空搜索 XuSearch</title>
   <meta name="description" content="配合扩展脚本在 Windows 与 MacOS 上调用搜索组：WIN+R 直接使用、搭配 Quicker / Alfred / uTools，以及脚本闪退报错的完整排查指南。" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070710'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%238B5CF6' stroke-width='3.5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2322D3EE'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/fonts.css" />
   <link rel="stylesheet" href="../assets/css/base.css" />
   <link rel="stylesheet" href="docs.css" />
 </head>
 <body>
+  <!-- 星空背景：整页固定层（与首页同一套 stars.js） -->
+  <canvas class="star-field" data-starfield aria-hidden="true"></canvas>
+
 
   <!-- 顶栏：左品牌，右返回官网 -->
   <header class="doc-bar">
@@ -24,6 +29,7 @@
   </header>
 
   <main class="doc-main">
+
 
     <!-- 标题区 -->
     <div class="doc-head">
@@ -456,6 +462,7 @@ end run`)
 
   </main>
 
+  <script src="../assets/js/stars.js"></script>
   <script src="toc.js"></script>
   <script src="copy-code.js"></script>
 </body>
