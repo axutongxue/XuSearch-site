@@ -40,30 +40,32 @@
 
     function rand(a, b) { return a + Math.random() * (b - a); }
 
-    /* 星团中心：每次 build 随机生成，让星星成团分布而非均匀铺满 */
+    /* 星团中心：只在初始化时随机生成一次，坐标归一化为 0~1 相对值，
+       之后无论窗口怎么 resize（包括 Safari 滚动收放工具栏的连发 resize）
+       都不再重排星星 */
     function makeClusters() {
       clusters = [];
       for (var i = 0; i < 6; i++) {
         clusters.push({
-          x: rand(W * 0.06, W * 0.94),
-          y: rand(H * 0.04, H * 0.96),
-          rx: rand(W * 0.12, W * 0.34),   // 铺开范围放宽，星团彼此交叠
-          ry: rand(H * 0.10, H * 0.28),
+          x: rand(0.06, 0.94),
+          y: rand(0.04, 0.96),
+          rx: rand(0.12, 0.34),   // 铺开范围放宽，星团彼此交叠
+          ry: rand(0.10, 0.28),
         });
       }
     }
 
     function makeStar() {
       var s = {};
-      // 62% 落在星团附近，38% 随机散布
+      // 62% 落在星团附近，38% 随机散布（nx/ny 存 0~1 归一化坐标，绘制时乘 W/H）
       if (clusters.length && Math.random() < 0.62) {
         var cl = clusters[(Math.random() * clusters.length) | 0];
         // 两次随机相加 ≈ 中间密、边缘疏
-        s.x = cl.x + (Math.random() + Math.random() - 1) * cl.rx;
-        s.y = cl.y + (Math.random() + Math.random() - 1) * cl.ry;
+        s.nx = cl.x + (Math.random() + Math.random() - 1) * cl.rx;
+        s.ny = cl.y + (Math.random() + Math.random() - 1) * cl.ry;
       } else {
-        s.x = Math.random() * W;
-        s.y = Math.random() * H;
+        s.nx = Math.random();
+        s.ny = Math.random();
       }
       // 大小分三档，差异明显
       var roll = Math.random();
@@ -84,6 +86,9 @@
       return s;
     }
 
+    /* 星星只在初始化时 build 一次。resize 绝不重排——
+       旧行为在 resize 里重建全部星星，Safari 滚动收放工具栏连发 resize
+       时整片星空就跟着"重置"一遍（Chrome 无此现象，故只有 Safari 可见）。 */
     function build() {
       makeClusters();
       stars = [];
@@ -92,7 +97,7 @@
 
     /* ── 尺寸 ───────────────────────────────────────────────────────── */
 
-    function resize() {
+    function applyResize() {
       var r = host.getBoundingClientRect();
       W = Math.max(1, Math.round(r.width));
       H = Math.max(1, Math.round(window.innerHeight));
@@ -101,9 +106,16 @@
       canvas.style.width = '100%';
       canvas.style.height = '100vh';
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-      build();
-      updateMetrics();   // 重建后再测量（布局可能在 build 前后稳定）
-      paint(0);
+      updateMetrics();   // 尺寸变了，重测渐隐窗口
+      // 不在此处 paint：下一帧 rAF 自然用新尺寸重画，且不会重置闪烁相位
+    }
+
+    /* Safari 工具栏收放会在几十毫秒内连发多次 resize，防抖后
+       只在停顿时重设一次画布，避免连续重分配画布显存 */
+    var resizeTimer = 0;
+    function resize() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(applyResize, 150);
     }
 
     /* 动画循环里绝不读布局（getBoundingClientRect 会强制重排），
@@ -158,9 +170,9 @@
 
         // 明暗呼吸
         var a = s.alpha * (0.35 + 0.65 * Math.abs(Math.sin(t * s.tw + s.phase)));
-        // 缓慢循环位移
-        var px = s.x + Math.sin((t / s.dxPeriod) * Math.PI * 2 + s.dxPhase) * s.dxAmp;
-        var py = s.y + Math.cos((t / s.dyPeriod) * Math.PI * 2 + s.dyPhase) * s.dyAmp;
+        // 缓慢循环位移（nx/ny 为 0~1 归一化坐标，乘当前 W/H）
+        var px = s.nx * W + Math.sin((t / s.dxPeriod) * Math.PI * 2 + s.dxPhase) * s.dxAmp;
+        var py = s.ny * H + Math.cos((t / s.dyPeriod) * Math.PI * 2 + s.dyPhase) * s.dyAmp;
         // 底部渐隐
         var f = fadeAt(canvasTopDoc + py);
         if (f <= 0) continue;
@@ -192,7 +204,8 @@
       raf = 0;
     }
 
-    resize();
+    build();        // 星星只在此生成一次，坐标归一化
+    applyResize();  // 初始尺寸同步设置；之后的 resize 走防抖，不重排星星
     window.addEventListener('resize', resize);
 
     // 滚动时刷新布局指标（画布 sticky，滚动会改变其文档位置），rAF 节流
