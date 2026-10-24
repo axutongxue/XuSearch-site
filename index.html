@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="assets/css/site.css?v=20261022" />
   <link rel="preconnect" href="https://api.fontshare.com" />
   <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/theme.css" />
+  <link rel="stylesheet" href="assets/css/theme.css?v=20261024" />
 </head>
 <body class="v4">
 
@@ -49,9 +49,12 @@
 
     <!-- ─── HERO：满屏沉浸 + 巨型水印 ─────────────────────────── -->
     <section class="hero" id="install">
-      <!-- 背景：AVIF 动画（原为 cloudfront 视频，替换为同源观感的动图） -->
+      <!-- 背景：本地视频 hero-bg.mp4（源文件 背景_1.mp4 为 HEVC，Firefox 不支持、Chrome 需硬解，
+           故转码为全平台 H.264；shared.js 会自动 loop/muted/离屏暂停）。
+           回滚：注释掉 video、解开下面 img 行即可换回京东图床 AVIF 动画。 -->
       <div class="hero-bg" aria-hidden="true">
-        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271127/549092/11/5650/970603/00510d04Fd7f28e53/09366ac4bc45b281.avif" alt="" />
+        <!-- <img src="https://img30.360buyimg.com/imgzone/jfs/t20271127/549092/11/5650/970603/00510d04Fd7f28e53/09366ac4bc45b281.avif" alt="" /> -->
+        <video src="assets/video/hero-bg.mp4" autoplay muted loop playsinline preload="auto"></video>
         <span class="hero-bg-shade"></span>
       </div>
 
