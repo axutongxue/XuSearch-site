@@ -94,15 +94,16 @@
 
 .doc-body strong { color: var(--text-hi); font-weight: 600; }
 
+/* 链接：冰蓝 + 常显 0.8 下划线 */
 .doc-body a {
-  color: var(--nebula-lite);
+  color: lightskyblue;
   text-decoration: underline;
-  text-decoration-color: rgba(167, 139, 250, 0.35);
+  text-decoration-color: rgba(142, 197, 255, 0.8);
   text-underline-offset: 3px;
-  transition: text-decoration-color 0.25s var(--ease);
+  transition: text-decoration-color 0.25s var(--ease), color 0.25s var(--ease);
 }
 
-.doc-body a:hover { text-decoration-color: var(--nebula-lite); }
+.doc-body a:hover { color: cyan; text-decoration-color: cyan; }
 
 .doc-body h2 {
   font-size: 23px;
@@ -226,15 +227,17 @@
   font-family: var(--mono);
   font-size: 0.88em;
   color: var(--nebula-lite);
-  background: var(--glass);
-  border: 1px solid var(--glass-line);
+  /* 行内代码片面积小，背景比大块面板再亮一档（白 9%）才看得清 */
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.20);
   border-radius: 6px;
   padding: 1px 7px;
 }
 
 .doc-body pre {
-  background: var(--void-2);
-  border: 1px solid var(--glass-line);
+  /* 星空黑底上原来的近黑底（--void-2 #0A0A0A）几乎隐形，提为 6% 白 + 更亮的描边 */
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--r-s);
   padding: 16px 20px;
   overflow-x: auto;
@@ -257,8 +260,9 @@
   padding: 14px 18px;
   margin: 0 0 18px;
   font-size: 14.5px;
-  background: var(--glass);
-  border: 1px solid var(--glass-line);
+  /* 原 --glass 白 4.5% 在星空黑底上几乎隐形，提为 7.5% + 更亮的描边 */
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-left: 3px solid var(--aurora);
 }
 
@@ -613,10 +617,7 @@ body::after { opacity: 0.35; }
   -webkit-text-fill-color: transparent;
 }
 
-/* ── 正文里的强调色：紫 → 白 ─────────────────────────────────────── */
-.doc-body a { color: rgba(255, 255, 255, 0.92); }
-.doc-body a:hover { text-decoration-color: #FFFFFF; }
-
+/* ── 正文里的强调色：紫 → 白（链接已改冰蓝，主规则在 .doc-body a 处）── */
 .doc-body code { color: rgba(255, 255, 255, 0.92); }
 
 .doc-body h2::before {

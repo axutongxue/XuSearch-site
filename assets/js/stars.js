@@ -14,7 +14,7 @@
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var DPR = Math.min(window.devicePixelRatio || 1, 2);
-  var STAR_COUNT = 900;
+  var STAR_COUNT = 700;
 
   function createField(canvas) {
     var host = canvas.parentElement;
