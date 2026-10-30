@@ -236,7 +236,8 @@ body.v4 { --bar-h: 60px; --dock-h: 58px; }
   filter: blur(52px);
 }
 /* 框随图走：不留固定比例，图按自身比例完整显示（不裁、不拉伸、不留边） */
-.bleed-inner .screen img { width: 100%; height: auto; }
+.bleed-inner .screen img,
+.bleed-inner .screen video { width: 100%; height: auto; }
 
 /* ── 能力：左右交替行（取自 V1 轨道） ─────────────────────────────────── */
 
@@ -312,7 +313,8 @@ body.v4 { --bar-h: 60px; --dock-h: 58px; }
 .row-copy p { font-size: 15.5px; line-height: 1.68; color: var(--text-mid); }
 
 /* 框随图走：不留固定比例，图按自身比例完整显示（不裁、不拉伸、不留边） */
-.row-screen img { width: 100%; height: auto; }
+.row-screen img,
+.row-screen video { width: 100%; height: auto; }
 
 /* ── 答疑：两栏网格（取自 V1） ───────────────────────────────────────── */
 
