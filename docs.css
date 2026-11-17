@@ -1,0 +1,662 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   虚空搜索 XuSearch — 教程文档排版
+   依赖 assets/css/base.css 的设计令牌（深空底色 / 星云色 / 玻璃拟态）。
+   写新教程：复制 template.html，只改正文，不要动这个文件。
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 顶栏 ─────────────────────────────────────────────────────────────── */
+
+.doc-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;                  /* 与首页固定 .bar 等高，切页顶部不再跳 */
+  padding: 0 26px;               /* 左内边距与首页 .bar 一致，home+文案不右移 */
+  background: rgba(5, 5, 9, 0.62);   /* 与首页 .bar 一致 */
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--glass-line);
+}
+
+/* 左上角「返回官网」沿用首页 bar-brand 样式，标记换成房子图标 */
+.doc-bar-home { display: flex; align-items: center; gap: 9px; }
+.doc-bar-home .bar-mark {
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border-radius: 9px;
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  color: var(--nebula-lite);
+}
+.doc-bar-home .bar-mark svg { width: 16px; height: 16px; }
+.doc-bar-home .bar-name { font-size: 18px; font-weight: 600; letter-spacing: 0.02em; }
+.doc-bar-home .bar-slash { color: var(--text-dim); }
+.doc-bar-home .bar-en {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-lo);
+}
+.doc-bar-home:hover .bar-mark { border-color: var(--glass-line-hi); }
+
+.doc-bar-back {
+  font-size: 13px;
+  color: var(--text-mid);
+  transition: color 0.25s var(--ease);
+}
+
+.doc-bar-back:hover { color: var(--nebula-lite); }
+
+/* ── 正文列 ───────────────────────────────────────────────────────────── */
+
+.doc-main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 32px 96px;
+}
+
+/* 标题区 */
+.doc-head { margin-bottom: 48px; }
+
+.doc-head h1 {
+  font-size: clamp(30px, 4.6vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+/* 适用版本 / 更新日期 一行 */
+.doc-meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-lo);
+}
+
+.doc-lead {
+  margin-top: 18px;
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: var(--text-hi);
+}
+
+/* ── 正文元素 ─────────────────────────────────────────────────────────── */
+
+.doc-body {
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: var(--text-mid);
+}
+
+.doc-body strong { color: var(--text-hi); font-weight: 600; }
+
+/* 链接：冰蓝 + 常显 0.8 下划线 */
+.doc-body a {
+  color: lightskyblue;
+  text-decoration: underline;
+  text-decoration-color: rgba(142, 197, 255, 0.8);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.doc-body a:hover { color: cyan; text-decoration-color: cyan; }
+
+.doc-body h2 {
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--text-hi);
+  letter-spacing: -0.01em;
+  margin: 56px 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 标题左侧的星云渐变竖条 */
+.doc-body h2::before {
+  content: '';
+  flex-shrink: 0;
+  width: 4px;
+  height: 20px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--nebula), var(--aurora));
+}
+
+.doc-body h3 {
+  font-size: 17.5px;
+  font-weight: 600;
+  color: var(--text-hi);
+  margin: 36px 0 12px;
+}
+
+.doc-body h4 {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--text-hi);
+  margin: 28px 0 10px;
+}
+
+.doc-body h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin: 24px 0 10px;
+}
+
+.doc-body h6 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-mid);
+  margin: 20px 0 8px;
+}
+
+.doc-body p { margin-bottom: 14px; }
+
+/* 有序列表（操作步骤）：星云色等宽序号 */
+.doc-body ol {
+  list-style: none;
+  counter-reset: step;
+  margin: 0 0 18px;
+}
+
+.doc-body ol > li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 10px;
+}
+
+.doc-body ol > li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--nebula-lite);
+}
+
+/* 无序列表 */
+.doc-body ul {
+  list-style: none;
+  margin: 0 0 18px;
+}
+
+.doc-body ul > li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+
+.doc-body ul > li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--nebula);
+}
+
+/* 截图 */
+.doc-body figure { margin: 24px 0 28px; }
+
+.doc-body figure img {
+  width: 100%;
+  border: 1px solid var(--glass-line);
+  border-radius: var(--r-m);
+  background: var(--void-2);
+}
+
+.doc-body figcaption {
+  margin-top: 10px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--text-lo);
+}
+
+/* 行内代码与代码块 */
+.doc-body code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  color: var(--nebula-lite);
+  /* 行内代码片面积小，背景比大块面板再亮一档（白 9%）才看得清 */
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  border-radius: 6px;
+  padding: 1px 7px;
+}
+
+.doc-body pre {
+  /* 星空黑底上原来的近黑底（--void-2 #0A0A0A）几乎隐形，提为 6% 白 + 更亮的描边 */
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--r-s);
+  padding: 16px 20px;
+  overflow-x: auto;
+  margin: 0 0 18px;
+}
+
+.doc-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-mid);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* 提示 / 注意 两种标注框 */
+.doc-note,
+.doc-warn {
+  border-radius: var(--r-s);
+  padding: 14px 18px;
+  margin: 0 0 18px;
+  font-size: 14.5px;
+  /* 原 --glass 白 4.5% 在星空黑底上几乎隐形，提为 7.5% + 更亮的描边 */
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-left: 3px solid var(--aurora);
+}
+
+.doc-warn { border-left-color: var(--flare); }
+
+.doc-note strong,
+.doc-warn strong { display: inline; }
+
+/* 分隔线 */
+.doc-body hr {
+  border: none;
+  border-top: 1px solid var(--glass-line);
+  margin: 48px 0;
+}
+
+/* ── 页脚 ─────────────────────────────────────────────────────────────── */
+
+.doc-foot {
+  margin-top: 72px;
+  padding-top: 24px;
+  border-top: 1px solid var(--glass-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.doc-foot a {
+  color: var(--text-mid);
+  transition: color 0.25s var(--ease);
+}
+
+.doc-foot a:hover { color: var(--nebula-lite); }
+
+.doc-foot .mono {
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-lo);
+}
+
+/* 跳转目标不被吸顶栏挡住 */
+.doc-body h2, .doc-body h3, .doc-body h4, .doc-body h5, .doc-body h6 { scroll-margin-top: 72px; }
+
+/* ── 左侧文章目录（宽屏才显示，窄屏隐藏） ────────────────────────────── */
+
+.doc-toc {
+  position: fixed;
+  top: 88px;
+  left: max(12px, calc(50vw - 664px));
+  width: 268px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  padding: 8px 0 24px;
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .doc-toc { display: block; }
+}
+
+/* 树形：li 带子级标题时可折叠，h2（二级目录）为始终展开的顶层，h2 之下可逐层收起 */
+.doc-toc ul { list-style: none; margin: 0; padding: 0; }
+.doc-toc li { position: relative; }
+.doc-toc li > ul { margin-left: 18px; }
+
+/* 折叠/展开按钮：明显的可点击区 + 悬停反馈 */
+.doc-toc .toc-toggle {
+  position: absolute;
+  left: 1px;
+  top: 6px;
+  width: 22px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-hi); /* 白色，更显眼 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.doc-toc .toc-toggle:hover {
+  background: var(--glass);
+}
+.doc-toc .toc-toggle::before {
+  content: '▾';
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 700;
+  transition: transform 0.2s var(--ease);
+}
+.doc-toc li.collapsed > .toc-toggle::before { transform: rotate(-90deg); }
+.doc-toc li.collapsed > ul { display: none; }
+
+/* 二级目录当作分组标题，更醒目 */
+.doc-toc .lv2 > .toc-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-hi);
+  letter-spacing: 0.01em;
+  margin: 12px 0 4px;
+}
+
+/* 子层级链接 */
+.doc-toc .toc-link {
+  display: block;
+  padding: 6px 10px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-mid);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 8px;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.doc-toc .toc-li.lv3 > .toc-link,
+.doc-toc .toc-li.lv4 > .toc-link,
+.doc-toc .toc-li.lv5 > .toc-link,
+.doc-toc .toc-li.lv6 > .toc-link {
+  padding-left: 26px;
+  font-size: 13px;
+  color: var(--text-hi); /* 统一白色 */
+}
+.doc-toc .toc-link:hover { color: var(--text-hi); background: var(--glass); }
+.doc-toc .toc-link.active {
+  color: #FFFFFF;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.14);      /* 白色玻璃底（换肤前的紫底已废弃） */
+  box-shadow: inset 3px 0 0 #FFFFFF;          /* 左侧白色竖条标明当前项 */
+}
+
+/* ── 教程总览页：标题 + 卡片索引（首页玻璃语言） ─────────────────────── */
+
+.idx-main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 88px 32px 112px;
+}
+
+/* 标题区：小标签 + 渐变大标题 + 导语 */
+.idx-head { margin-bottom: 48px; }
+
+.idx-kicker {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.idx-head h1 {
+  margin-top: 16px;
+  font-size: clamp(34px, 5.2vw, 52px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.idx-lead {
+  margin-top: 14px;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.idx-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 卡片：玻璃底 + 描边，悬停上浮提亮（与首页卡片同一语言） */
+.tut-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 24px 26px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--r-m);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease),
+              transform 0.25s var(--ease);
+}
+
+.tut-card:hover {
+  border-color: rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+}
+
+/* 序号徽标：白色玻璃方块 */
+.tut-no {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tut-main { min-width: 0; }
+
+.tut-title {
+  display: block;
+  font-size: 18.5px;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+.tut-desc {
+  display: block;
+  margin-top: 7px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+/* 箭头：悬停时向右滑出一点 */
+.tut-go {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.tut-card:hover .tut-go {
+  color: #FFFFFF;
+  transform: translateX(4px);
+}
+
+@media (max-width: 640px) {
+  .idx-main { padding: 56px 20px 80px; }
+  .tut-card { padding: 20px; gap: 16px; align-items: flex-start; }
+  .tut-no { width: 40px; height: 40px; font-size: 12.5px; }
+  .tut-title { font-size: 16.5px; }
+}
+
+/* ── 代码块：一键复制按钮 ────────────────────────────────────────────── */
+
+.doc-body pre { position: relative; }
+
+.code-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 11.5px;
+  padding: 2px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+
+.code-copy:hover {
+  color: var(--text-hi);
+  border-color: var(--glass-line-hi);
+  background: var(--glass-hi);
+}
+
+.code-copy.copied {
+  color: var(--nebula-lite);
+  border-color: var(--nebula);
+}
+
+@media (max-width: 640px) {
+  .doc-bar { padding: 12px 20px; }
+  .doc-main { padding: 40px 20px 72px; }
+  .doc-body h2 { font-size: 20px; }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   主题覆盖：对齐首页的黑白风格
+
+   文档页与首页分离维护（首页走 site.css + theme.css），所以这里独立覆盖：
+   把星云紫（--nebula）与青色（--aurora）收敛为白系，字体换成 General Sans。
+   追加在文件末尾 → 优先级最高，不必改动上述任何既有规则。
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --void-0: #000000;
+  --void-1: #000000;
+  --void-2: #0A0A0A;
+  --void-3: #111111;
+
+  --text-hi:  #FFFFFF;
+  --text-mid: rgba(255, 255, 255, 0.70);
+  --text-lo:  rgba(255, 255, 255, 0.48);
+  --text-dim: rgba(255, 255, 255, 0.30);
+
+  /* 原紫/青主色 → 白 */
+  --nebula:      #FFFFFF;
+  --nebula-lite: #FFFFFF;
+  --nebula-deep: #C8C8C8;
+  --aurora:      #FFFFFF;
+  --aurora-deep: #B0B0B0;
+  --flare:       #FFFFFF;
+
+  --glass:         rgba(255, 255, 255, 0.045);
+  --glass-hi:      rgba(255, 255, 255, 0.085);
+  --glass-line:    rgba(255, 255, 255, 0.14);
+  --glass-line-hi: rgba(255, 255, 255, 0.28);
+
+  /* 与首页一致的字体 */
+  --font: 'General Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC',
+          'Microsoft YaHei', sans-serif;
+}
+
+/* ── 底噪：星云光晕换成极淡的白色冷光 ─────────────────────────────── */
+body::before {
+  background:
+    radial-gradient(1000px 620px at 50% -10%, rgba(255, 255, 255, 0.10), transparent 68%),
+    radial-gradient(760px 520px at 18% 20%, rgba(255, 255, 255, 0.05), transparent 62%);
+}
+
+body::after { opacity: 0.35; }
+
+/* ── 顶栏：黑色玻璃（与首页 .bar 同款） ───────────────────────────── */
+.doc-bar {
+  background: rgba(5, 5, 9, 0.62);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.doc-bar-home .bar-mark {
+  border: 1px solid var(--glass-line);
+  background: rgba(255, 255, 255, 0.06);
+  color: #FFFFFF;
+}
+
+/* ── 标题渐变：白 → 透明（首页同款 144.5°） ───────────────────────── */
+.grad {
+  background-image: linear-gradient(144.5deg, #FFFFFF 28%, rgba(0, 0, 0, 0) 115%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── 正文里的强调色：紫 → 白（链接已改冰蓝，主规则在 .doc-body a 处）── */
+.doc-body code { color: rgba(255, 255, 255, 0.92); }
+
+.doc-body h2::before {
+  background: linear-gradient(180deg, #FFFFFF, rgba(255, 255, 255, 0.35));
+}
+
+.doc-body ol > li::before { color: rgba(255, 255, 255, 0.55); }
+.doc-body ul > li::before { background: rgba(255, 255, 255, 0.65); }
+
+/* 提示 / 注意 框：左缘改白系（原来分别是青色 / 粉色） */
+.doc-note { border-left-color: rgba(255, 255, 255, 0.50); }
+.doc-warn { border-left-color: rgba(255, 255, 255, 0.78); }
+
+/* ── 代码复制按钮：完成态改白 ─────────────────────────────────────── */
+.code-copy.copied { color: #FFFFFF; border-color: #FFFFFF; }
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   星空背景层（与首页同一套 stars.js）
+
+   结构：<canvas class="star-field" data-starfield> 直接放在 body 开头，
+   固定覆盖整个视口 —— 整页背景，顶栏与正文都压在它之上。
+   · fixed 定位不参与文档流，不撑高页面、不干扰任何布局
+   · 只有视口大小，滚动时星空常驻，省显存
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.star-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* 顶栏与正文整体压在星空之上 */
+body > header,
+body > main {
+  position: relative;
+  z-index: 1;
+}
