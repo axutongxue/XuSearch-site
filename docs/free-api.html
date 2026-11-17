@@ -34,7 +34,7 @@
     <!-- 标题区 -->
     <div class="doc-head">
       <h1 class="grad">免费 AI 大模型 API 推荐</h1>
-      <p class="doc-meta">最后更新 2026-10-05</p>
+      <p class="doc-meta">最后更新 2026-11-17</p>
       <p class="doc-lead">推荐一些完全免费且足够用于 AI 总结的大模型 API。这里用最不废话、不绕弯子、最简单直接的话告诉你怎么使用。</p>
     </div>
 
@@ -49,28 +49,10 @@
       <p>扩展里面的 Base URL 一栏填写：<code>https://apihub.agnes-ai.com/v1</code></p>
       <p>API Key 填你刚刚复制的，模型名则填写：<code>agnes-2.5-flash</code>或者<code>agnes-3.0-flash</code></p>
       <p>免费用户限制<strong>每分钟最大请求次数 20 次</strong>，对于本扩展的 AI 总结使用场景完全够用</p>
-      <p>其中 <code>agnes-2.5-flash</code> 永久免费，<code>agnes-3.0-flash</code> 目前 2026 年 10 月 3 日仍属于限时免费中。后续 <code>agnes-3.0-flash</code> 是否转为收费，或者官方是否又有新的免费模型更新，请以官方最新文档为准：<a href="https://www.agnes-ai.com/zh-Hans/docs/" target="_blank" rel="noopener noreferrer">https://www.agnes-ai.com/zh-Hans/docs/</a></p>
+      <p>其中 <code>agnes-2.5-flash</code> 和 <code>agnes-3.0-flash</code> 目前 2026 年 11 月 17 日仍标注完全免费。后续模型是否转为收费，或者官方是否又有新的免费模型更新，请以官方最新文档为准：<a href="https://www.agnes-ai.com/zh-Hans/docs/pricing" target="_blank" rel="noopener noreferrer">https://www.agnes-ai.com/zh-Hans/docs/pricing</a></p>
       <figure>
-        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/529670/3/13538/31557/6ac0f729F424a42ec/093628427a145a65.png" alt="Agnes 免费模型说明" loading="lazy" />
+        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271222/571307/40/11997/17296/6afc3d0aF1b685b26/09362f617300458b.png" alt="Agnes 免费模型说明" loading="lazy" />
       </figure>
-
-      <h2>🥇 Ollama</h2>
-      <p>提供 120b 甚至 550b 参数量的免费大模型 API，并且输出速度还相当不错。官方没有明确的 token 用量说明，不过现在是每月刷新免费用量，注册后不强制填写支付信息，所以不用担心超量扣费问题</p>
-      <p>用邮箱、Github、Google 账号注册并登录 Ollama 控制台，进入 Keys 管理页面，创建新的密钥后复制：<a href="https://ollama.com/search?c=cloud" target="_blank" rel="noopener noreferrer">https://ollama.com/search?c=cloud</a></p>
-      <figure>
-        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/538112/40/5469/10670/6ac1103bFb9b8028b/09362e81390717e9.png" alt="Ollama Keys 管理页面" loading="lazy" />
-      </figure>
-      <p>然后如今可以在 Usage 页面看到直接看到支持免费使用的模型，2026 年 10 月 3 日目前有 <code>gpt-oss:120b</code>、<code>nemotron-3-ultra</code> 等模型</p>
-      <figure>
-        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/525164/25/15931/12466/6ac11148F56ec087f/09362c6136f9adda.png" alt="Ollama Usage 页面的免费模型列表" loading="lazy" />
-      </figure>
-      <p>但使用时候需要特别注意。点进末尾带 <code>：</code>参数量的模型，以 <code>gpt-oss:120b</code> 为例，需要去浏览器地址栏删除 <code>:120b</code> 后进入具体模型界面，往下翻才能找到正确的可调用模型名，比如这个模型想要通过 API 调用需要填写 <code>gpt-oss:120b-cloud</code></p>
-      <figure>
-        <img src="https://img30.360buyimg.com/imgzone/jfs/t20271107/536442/31/5739/375249/0050f901Fe2804845/09363b026b7bbc97.gif" alt="进入 Ollama 具体模型界面找出可调用名" loading="lazy" />
-      </figure>
-      <p>末尾不带 <code>：</code>参数量的模型没有这个问题，比如 256K 上下文 550b 参数量的 <a href="https://ollama.com/library/nemotron-3-ultra" target="_blank" rel="noopener noreferrer">nemotron-3-ultra</a> 点进去之后往下翻就能复制到它的实际可调用模型名 <code>nemotron-3-ultra:cloud</code></p>
-      <p>扩展里面的 Base URL 一栏填写：<code>https://ollama.com/v1</code></p>
-      <p>API Key 填你刚刚复制的，模型名推荐填写：<code>nemotron-3-ultra:cloud</code> 或者 <code>gpt-oss:120b-cloud</code></p>
 
       <h2>🥇 魔搭社区 ModelScope</h2>
       <p>目前 2026 年 10 月 3 日，<a href="https://modelscope.cn/docs/model-service/API-Inference/limits" target="_blank" rel="noopener noreferrer">魔搭社区已改版为「魔粒」体系</a>，每日免费赠送 250 魔粒，不同模型消耗量不同，选择轻量模型可以完全实现每日免费 AI 总结</p>
@@ -121,7 +103,7 @@
       <p>扩展里面的 Base URL 一栏填写：<code>https://open.bigmodel.cn/api/paas/v4</code></p>
       <p>API Key 填你刚刚复制的，模型名推荐填写：<code>GLM-4-Flash-250414</code></p>
       <div class="doc-note">
-        <strong>注：</strong>智谱 BigModel 上的 30B 参数 200K 的 <code>GLM-4.7-Flash</code> 虽然永久免费能力挺好，但是调用人数太多，实际使用几乎都会超时无法使用。<a href="https://docs.bigmodel.cn/cn/guide/models/free/glm-4-flash-250414" target="_blank" rel="noopener noreferrer">GLM-4-Flash-250414</a> 具备 128K 上下文在文本总结这个场景还是可以用一用的。未来是否会有更多免费模型，请参看官方 API 计费文档：https://docs.bigmodel.cn/cn/guide/start/pricing
+        <strong>注：</strong>智谱 BigModel 上的 30B 参数 200K 的 <code>GLM-4.7-Flash</code> 虽然永久免费能力挺好，但是调用人数太多，实际使用几乎都会超时无法使用。<a href="https://docs.bigmodel.cn/cn/guide/models/free/glm-4-flash-250414" target="_blank" rel="noopener noreferrer">GLM-4-Flash-250414</a> 具备 128K 上下文在文本总结这个场景还是可以用一用的。未来是否会有更多免费模型，请参看官方 API 计费文档：<a href="https://docs.bigmodel.cn/cn/guide/start/pricing" target="_blank" rel="noopener noreferrer">https://docs.bigmodel.cn/cn/guide/start/pricing</a>
       </div>
 
       <h2>🥈 小红书</h2>
